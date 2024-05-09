@@ -1,0 +1,40 @@
+/* SystemManagement.css */
+
+.admins-container {
+    margin-left: 20%;
+    
+  }
+  
+  .admins-container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .admins-container h1 ion-icon {
+    margin-right: 10px;
+  }
+  
+  .admins-table {
+    width: 70%;
+    border-collapse: collapse;
+    
+  }
+  
+  .admins-table th,
+  .admins-table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .admins-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    text-align: left;
+  }
+  
+  .admins-table tbody tr:hover {
+    background-color: #f5f5f5;
+  }
+  

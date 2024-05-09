@@ -1,0 +1,69 @@
+/* Sidebar.css */
+
+.sidebar {
+  width: 250px;
+  height: 100%;
+  background-color: #1f2730;
+  color: #fff;
+  position: fixed;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  position: relative;
+  padding: 20px 20px;
+  border-radius: 15px;
+  left: 10px;
+  width: 75%;
+}
+
+.sidebar ul li:hover {
+  background-color: #2B547E;
+}
+
+.sidebar ul li a {
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}
+
+.sidebar ul li ion-icon {
+  margin-right: 10px;
+}
+
+.Manage {
+  font-weight: 600;
+  user-select: none;
+  cursor: pointer;
+}
+
+/* SUB MENU */
+.custom-submenu {
+  display: block;
+  padding-left: 20px;
+}
+
+.custom-submenu li {
+  padding: 8px 0;
+  margin-top: 10px;
+  margin-left: -20px;
+}
+
+.custom-submenu li a {
+  color: #fff;
+  width: 150px;
+}
+
+.custom-submenu li a:hover {
+  color: #000000;
+}
+
+
+
+

@@ -1,0 +1,51 @@
+/* Products.css */
+
+.products-container {
+  margin: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  user-select: none;
+}
+
+.products-container h1 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+.search-text {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.products-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.products-table th,
+.products-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.products-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.products-table td img {
+  max-width: 50px;
+  max-height: 50px;
+  border-radius: 5px;
+}

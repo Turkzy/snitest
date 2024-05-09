@@ -1,0 +1,26 @@
+.dashboard-navbar {
+  position: sticky;
+  top: 0;
+  background-color: #1f2730;
+  color: #fff;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgb(0, 0, 0);
+  user-select: none;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.navbar-logo img {
+  width: 70px;
+  filter: brightness(100%) contrast(120%);
+}
+
+.dashboard-logo-text {
+  font-size: 1.5rem;
+  margin: 0;
+}
