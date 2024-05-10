@@ -22,7 +22,7 @@ const AddPanel = () => {
   return (
     <div className="products-container">
       <h1><ion-icon name="add-circle-outline"></ion-icon>Add Products</h1>
-      <Link to="/Dashboard/Add"><button className="add-product-btn">Add Product</button></Link>
+      <Link to="/Dashboard/Add"><button className="add-product-btn"><ion-icon name="add-circle-outline"></ion-icon>Add Product</button></Link>
       <div className="table-container">
         <table className="products-table">
           <thead>
