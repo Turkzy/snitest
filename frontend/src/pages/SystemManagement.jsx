@@ -31,6 +31,7 @@ const SystemManagement = () => {
   return (
     <div className="admins-container">
       <h1><ion-icon name="people-outline"></ion-icon>Admins</h1>
+      <Link to="/Dashboard/AddAccount"><button className="add-product-btn">Add Account</button></Link>
       <div className="table-container">
         <table className="admins-table">
           <thead>

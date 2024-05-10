@@ -15,6 +15,7 @@ import Sales from './pages/Sales';
 import SalesReport from './pages/SalesReport';
 import LoadingScreen from './pages/LoadingScreen';
 import DeletePanel from './pages/DeletePanel';
+import AddAccount from './pages/AddAccount';
 
 const LoginPanel = () => {
   return (
@@ -45,6 +46,7 @@ const DashboardPanel = () => {
         <Route path="/SalesReport" element={<SalesReport/>}/>
         <Route path="/SystemManagement" element={<SystemManagement/>}/>
         <Route path="/LoadingScreen" element={<LoadingScreen/>}/>
+        <Route path="/AddAccount" element={<AddAccount/>}/>
       </Routes>
     </>
   );

@@ -1,0 +1,49 @@
+.add-account {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-left: 20%;
+    
+    justify-content: center;
+  }
+  
+  .add-account h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .add-account-form .field {
+    margin-bottom: 15px;
+  }
+  
+  .add-account-form .label {
+    display: block;
+    font-weight: bold;
+  }
+  
+  .add-account-form .input {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .add-account-form .field-button {
+    text-align: center;
+  }
+  
+  .add-account-form .button-success {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .add-account-form .button-success:hover {
+    background-color: #45a049;
+  }
+  
