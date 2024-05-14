@@ -37,7 +37,7 @@ const Dashboard = () => {
           <p>{totalProducts}</p>
         </div>
         <div className="low-stock-count">
-          <h2><ion-icon name="warning-outline"></ion-icon>Critical Stock</h2>
+          <h2><ion-icon name="warning-outline"></ion-icon>Low Stock</h2>
           <p>{lowStockCount}</p>
         </div>
       </div>

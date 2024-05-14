@@ -10,9 +10,9 @@
 
 .navbar-container {
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding: 20px 20px;
 }
 
 .navbar-logo img {
@@ -21,6 +21,72 @@
 }
 
 .dashboard-logo-text {
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   margin: 0;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 20px;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.navbar-links a:hover {
+  color: #007bff;
+  border-bottom: 2px solid #007bff;
+}
+
+.navbar-links .active-link {
+  font-weight: bold;
+  color: #007bff;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-toggle {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.dropdown-toggle:hover {
+  color: #007bff;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #1f2730;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 20px;
+}
+
+.dropdown-menu a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+  margin-bottom: 10px;
+}
+
+.dropdown-menu a:hover {
+  color: #007bff;
 }

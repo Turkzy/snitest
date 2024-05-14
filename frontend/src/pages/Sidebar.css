@@ -6,6 +6,7 @@
   background-color: #1f2730;
   color: #fff;
   position: fixed;
+  user-select: none;
 }
 
 .sidebar ul {
@@ -15,10 +16,12 @@
 
 .sidebar ul li {
   position: relative;
-  padding: 20px 20px;
+  padding: 15px 20px;
   border-radius: 15px;
   left: 10px;
   width: 75%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .sidebar ul li:hover {
@@ -37,33 +40,46 @@
   margin-right: 10px;
 }
 
-.Manage {
-  font-weight: 600;
-  user-select: none;
-  cursor: pointer;
-}
-
-/* SUB MENU */
+/* Custom Submenu CSS */
 .custom-submenu {
-  display: block;
-  padding-left: 20px;
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+  border-top: 1px solid #fff;
+  margin-left: -10px;
 }
 
 .custom-submenu li {
-  padding: 8px 0;
-  margin-top: 10px;
-  margin-left: -20px;
+  padding: 10px 20px;
 }
 
 .custom-submenu li a {
   color: #fff;
-  width: 150px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.3s ease;
 }
 
 .custom-submenu li a:hover {
-  color: #000000;
+  color: #000000; /*rgb(0, 0, 0) to desired hover background color */
+}
+
+.custom-submenu li ion-icon {
+  margin-right: 10px;
 }
 
 
+.time-date {
+  padding: 10px 20px;
+  border-top: 1px solid #fff;
+  margin-top: 400px;
+}
 
+.time-date p {
+  margin: 5px 0;
+  color: #fff;
+  font-size: 14px;
+  text-align: center;
+}
 

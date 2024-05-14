@@ -47,7 +47,7 @@ const AddProductPanel = ({ getProducts }) => {
           'Content-Type': 'multipart/form-data'
         }
       });
-      console.log(response.data);
+      console.log(response.data); // Log the response for debugging
       navigate("/Dashboard/addPanel");
       setNewProduct({
         name: '',
@@ -59,7 +59,7 @@ const AddProductPanel = ({ getProducts }) => {
       setPreview(null);
       getProducts();
     } catch (error) {
-      console.error(error);
+      console.error(error); // Log any errors for debugging
     }
   };
 
