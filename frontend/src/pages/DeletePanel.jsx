@@ -5,9 +5,12 @@ import "./AddProduct.css";
 const DeletePanel = () => {
   const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showScroll, setShowScroll] = useState(false);
 
   useEffect(() => {
     getProducts();
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const getProducts = async () => {
@@ -20,16 +23,34 @@ const DeletePanel = () => {
   };
 
   const deleteProduct = async (id) => {
-    try {
-      await axios.delete(`http://localhost:5000/products/${id}`);
-      getProducts();
-    } catch (error) {
-      console.log(error);
+    if (window.confirm("Are you sure you want to delete this product?")) {
+      try {
+        await axios.delete(`http://localhost:5000/products/${id}`);
+        getProducts();
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
   const handleSearchInputChange = (event) => {
     setSearchQuery(event.target.value);
+  };
+
+  const handleScroll = () => {
+    if (window.scrollY > 300) {
+      setShowScroll(true);
+    } else {
+      setShowScroll(false);
+    }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const formatPrice = (price) => {
+    return `₱${parseFloat(price).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
   };
 
   const filteredProducts = products.filter((product) =>
@@ -38,7 +59,7 @@ const DeletePanel = () => {
 
   return (
     <div className="products-container">
-      <h1><ion-icon name="trash-outline"></ion-icon>Delete Products</h1>
+      <h1>Delete Products</h1>
       <input
         className="search-text"
         type="text"
@@ -63,17 +84,24 @@ const DeletePanel = () => {
               <tr key={product.id}>
                 <td>{product.name}</td>
                 <td>{product.stocks}</td>
-                <td>{product.buyingPrice}</td>
-                <td>{product.sellingPrice}</td>
+                <td>{formatPrice(product.buyingPrice)}</td>
+                <td>{formatPrice(product.sellingPrice)}</td>
                 <td><img src={product.url} alt="Product" width="50" height="50" /></td>
                 <td>
-                  <button className="delete-button" onClick={() => deleteProduct(product.id)}>Delete</button>
+                  <button className="delete-button" onClick={() => deleteProduct(product.id)}>
+                    <ion-icon name="trash-outline"></ion-icon>Delete
+                  </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+      {showScroll && (
+        <button className="scroll-to-top" onClick={scrollToTop}>
+          <ion-icon name="chevron-up-circle-outline"></ion-icon>Back to Top
+        </button>
+      )}
     </div>
   );
 };

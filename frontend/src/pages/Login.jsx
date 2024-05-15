@@ -4,6 +4,7 @@ import './Login.css';
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [loginStatus, setLoginStatus] = useState('');
     const [loading, setLoading] = useState(false);
 
@@ -25,13 +26,14 @@ const Login = () => {
                 setTimeout(() => {
                     window.location.href = '/Dashboard/LoadingScreen';
                 }, 1000);
-                
             } else if (response.status === 401) {
                 const data = await response.json();
                 if (data.message === "Incorrect password") {
                     setLoginStatus('failure_password');
+                    setPassword('');  // Clear the password field
                 } else if (data.message === "Username not found") {
                     setLoginStatus('failure_username');
+                    setUsername('');  // Clear the username field
                 } else {
                     setLoginStatus('error');
                 }
@@ -50,9 +52,30 @@ const Login = () => {
         <div className="auth">
             <form className="auth-form" onSubmit={handleSubmit}>
                 <h1>Login</h1>
-                <input className="username-input" type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required/>
-                <input className="password-input" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
-                <button type="submit">Login</button>
+                <input
+                    className="username-input"
+                    type="text"
+                    placeholder="Username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                />
+                <div className="password-container">
+                    <input
+                        className="password-input"
+                        type={showPassword ? 'text' : 'password'}
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                    <span className="password-toggle-icon" onClick={() => setShowPassword(!showPassword)}>
+                        <ion-icon name={showPassword ? "eye-off-outline" : "eye-outline"}></ion-icon>
+                    </span>
+                </div>
+                <button type="submit" disabled={loading}>
+                    {loading ? 'Logging in...' : 'Login'}
+                </button>
                 {loginStatus === 'success' && <p className='success-message'>Login successful! Redirecting...</p>}
                 {loginStatus === 'failure_password' && <p className="error-message">Invalid password.</p>}
                 {loginStatus === 'failure_username' && <p className="error-message">Invalid username.</p>}

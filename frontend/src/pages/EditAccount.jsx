@@ -1,39 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './AddAccount.css';
-import { useNavigate } from 'react-router';
+import { useParams, useNavigate } from 'react-router';
+import "./EditAccount.css"
 
-const AddAccount = () => {
+const EditAccount = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [usertype, setUsertype] = useState('User'); // Default to 'User'
   const [message, setMessage] = useState('');
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchAdmin();
+  }, []);
+
+  const fetchAdmin = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/admins/${id}`);
+      const admin = response.data;
+      setUsername(admin.username);
+      setPassword(admin.password);
+      setUsertype(admin.usertype);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/admins', { username, password, usertype });
-      if (response.status === 201) {
-        setMessage('Admin Created Successfully');
-        setUsername('');
-        setPassword('');
-        setUsertype('User'); 
-        navigate('/Dashboard/SystemManagement');
-      } else {
-        setMessage('Failed to create admin');
-      }
+      await axios.patch(`http://localhost:5000/admins/${id}`, { username, password, usertype });
+      setMessage('Admin Updated Successfully');
+      setTimeout(() => {
+        navigate('/Dashboard/SystemManagement'); // Redirect to SystemManagement after update
+      }, 1500);
     } catch (error) {
       console.log(error);
-      setMessage('Internal Server Error');
+      setMessage('Failed to update admin');
     }
   };
 
   return (
-    <div className="add-account-container custom-margin">
-      <h1>Add Account</h1>
-      <form onSubmit={handleSubmit} className="add-account-form">
+    <div className="edit-account-container custom-margin">
+      <h1>Edit Account</h1>
+      <form onSubmit={handleSubmit} className="edit-account-form">
         <div className="form-group">
           <label htmlFor="username">Username</label>
           <input
@@ -66,11 +79,11 @@ const AddAccount = () => {
             <option value="Admin">Admin</option>
           </select>
         </div>
-        <button type="submit" className="submit-button">Add Account</button>
+        <button type="submit" className="submit-button">Update Account</button>
       </form>
       {message && <p className="message">{message}</p>}
     </div>
   );
 };
 
-export default AddAccount;
+export default EditAccount;

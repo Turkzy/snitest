@@ -68,3 +68,26 @@
   font-size: 1rem;
   border-radius: 5px;
 }
+
+.password-container {
+  position: relative;
+  width: calc(100% - 0px);
+  margin-bottom: 20px;
+}
+
+.password-input {
+  width: 100%;
+  padding-right: 40px; 
+}
+
+.password-toggle-icon {
+  position: absolute;
+  top: 40%;
+  right: 30px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #333;
+  font-size: 1.3rem;
+}
+
+

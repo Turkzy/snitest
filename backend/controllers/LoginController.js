@@ -48,16 +48,18 @@ export const getAdminById = async (req, res) => {
 };
 
 /* SAVE */
+// Inside your LoginController.js or wherever you handle admin-related routes
 export const saveAdmin = async (req, res) => {
-    const { username, password } = req.body;
+    const { username, password, usertype } = req.body; // Extract usertype from the request body
     try {
-        await Admin.create({ username, password });
+        await Admin.create({ username, password, usertype }); // Insert usertype along with username and password
         res.status(201).json({ message: "Admin Created Successfully" });
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ message: "Internal Server Error" });
     }
 };
+
 
 /* UPDATE */
 export const updateAdmin = async (req, res) => {

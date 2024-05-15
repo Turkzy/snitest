@@ -15,6 +15,12 @@
   padding: 20px 20px;
 }
 
+.navbar-container p{
+  position: absolute;
+  top: 55%;
+  left: 14%;
+}
+
 .navbar-logo img {
   width: 70px;
   filter: brightness(100%) contrast(120%);
@@ -40,7 +46,6 @@
 
 .navbar-links a:hover {
   color: #007bff;
-  border-bottom: 2px solid #007bff;
 }
 
 .navbar-links .active-link {

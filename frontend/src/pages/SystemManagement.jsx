@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
-import "./SystemManagement.css";
 import { Link } from 'react-router-dom';
+import "./SystemManagement.css";
 
 const SystemManagement = () => {
   const [admins, setAdmins] = useState([]);
@@ -30,13 +30,19 @@ const SystemManagement = () => {
 
   return (
     <div className="admins-container">
-      <h1><ion-icon name="people-outline"></ion-icon>Admins</h1>
+      <h1><ion-icon name="people-outline"></ion-icon> Admins</h1>
+      <Link to="/Dashboard/AddAccount">
+        <button className="add-admin-btn">
+        <ion-icon name="person-add-outline"></ion-icon> Add Account
+        </button>
+      </Link>
       <div className="table-container">
         <table className="admins-table">
           <thead>
             <tr>
               <th>Username</th>
               <th>Password</th>
+              <th>Usertype</th> {/* Add this line */}
               <th>Actions</th>
             </tr>
           </thead>
@@ -45,8 +51,9 @@ const SystemManagement = () => {
               <tr key={admin.id}>
                 <td>{admin.username}</td>
                 <td>{admin.password}</td>
+                <td>{admin.usertype}</td> {/* Add this line */}
                 <td>
-                  <Link to={`/Dashboard/edit/${admin.id}`}>
+                  <Link to={`/Dashboard/EditAccount/${admin.id}`}>
                     <button className="edit-button">Edit</button>
                   </Link>
                   <button className="delete-button" onClick={() => deleteAdmin(admin.id)}>Delete</button> 

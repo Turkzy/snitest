@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
-import "./Products.css"
+import "./Products.css";
 
 const ProductsPanel = () => {
   const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [showScroll, setShowScroll] = useState(false);
 
   useEffect(() => {
     getProducts();
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const getProducts = async () => {
@@ -23,6 +26,22 @@ const ProductsPanel = () => {
     setSearchQuery(event.target.value);
   };
 
+  const handleScroll = () => {
+    if (window.scrollY > 300) {
+      setShowScroll(true);
+    } else {
+      setShowScroll(false);
+    }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const formatPrice = (price) => {
+    return `₱${parseFloat(price).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+  };
+
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -30,7 +49,8 @@ const ProductsPanel = () => {
   return (
     <div className="products-container">
       <h1><ion-icon name="copy-outline"></ion-icon>Products</h1>
-      <input className='search-text'
+      <input
+        className='search-text'
         type="text"
         placeholder="Search products..."
         value={searchQuery}
@@ -52,14 +72,19 @@ const ProductsPanel = () => {
               <tr key={product.id}>
                 <td>{product.name}</td>
                 <td>{product.stocks}</td>
-                <td>{product.buyingPrice}</td>
-                <td>{product.sellingPrice}</td>
+                <td>{formatPrice(product.buyingPrice)}</td>
+                <td>{formatPrice(product.sellingPrice)}</td>
                 <td><img src={product.url} alt="Product" width="50" height="50" /></td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+      {showScroll && (
+        <button className="scroll-to-top" onClick={scrollToTop}>
+          <ion-icon name="chevron-up-circle-outline"></ion-icon>Back to Top
+        </button>
+      )}
     </div>
   );
 };

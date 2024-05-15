@@ -5,9 +5,12 @@ import "./AddProduct.css";
 
 const AddPanel = () => {
   const [products, setProducts] = useState([]);
+  const [showScroll, setShowScroll] = useState(false);
 
   useEffect(() => {
     getProducts();
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const getProducts = async () => {
@@ -19,10 +22,30 @@ const AddPanel = () => {
     }
   };
 
+  const handleScroll = () => {
+    if (window.scrollY > 300) {
+      setShowScroll(true);
+    } else {
+      setShowScroll(false);
+    }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const formatPrice = (price) => {
+    return `₱${parseFloat(price).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+  };
+
   return (
     <div className="products-container">
-      <h1><ion-icon name="add-circle-outline"></ion-icon>Add Products</h1>
-      <Link to="/Dashboard/Add"><button className="add-product-btn"><ion-icon name="add-circle"></ion-icon>Add Product</button></Link>
+      <h1>Add Products</h1>
+      <Link to="/Dashboard/Add">
+        <button className="add-product-btn">
+          <ion-icon name="add-circle-outline"></ion-icon>Add Product
+        </button>
+      </Link>
       <div className="table-container">
         <table className="products-table">
           <thead>
@@ -39,14 +62,19 @@ const AddPanel = () => {
               <tr key={product.id}>
                 <td>{product.name}</td>
                 <td>{product.stocks}</td>
-                <td>{product.buyingPrice}</td>
-                <td>{product.sellingPrice}</td>
-                <td><img src={product.url} alt="Product"/></td>
+                <td>{formatPrice(product.buyingPrice)}</td>
+                <td>{formatPrice(product.sellingPrice)}</td>
+                <td><img src={product.url} alt="Product" width="50" height="50" /></td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+      {showScroll && (
+        <button className="scroll-to-top" onClick={scrollToTop}>
+          <ion-icon name="chevron-up-circle-outline"></ion-icon>Back to Top
+        </button>
+      )}
     </div>
   );
 };

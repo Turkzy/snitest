@@ -6,9 +6,12 @@ import './AddProduct.css';
 const EditPanel = () => {
   const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showScroll, setShowScroll] = useState(false);
 
   useEffect(() => {
     getProducts();
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const getProducts = async () => {
@@ -24,15 +27,29 @@ const EditPanel = () => {
     setSearchQuery(event.target.value);
   };
 
+  const handleScroll = () => {
+    if (window.scrollY > 300) {
+      setShowScroll(true);
+    } else {
+      setShowScroll(false);
+    }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const formatPrice = (price) => {
+    return `₱${parseFloat(price).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+  };
+
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <div className="products-container">
-      <h1>
-        <ion-icon name="create-outline"></ion-icon>Edit Products
-      </h1>
+      <h1>Edit Products</h1>
       <input
         className="search-text"
         type="text"
@@ -57,14 +74,16 @@ const EditPanel = () => {
               <tr key={product.id}>
                 <td>{product.name}</td>
                 <td>{product.stocks}</td>
-                <td>{product.buyingPrice}</td>
-                <td>{product.sellingPrice}</td>
+                <td>{formatPrice(product.buyingPrice)}</td>
+                <td>{formatPrice(product.sellingPrice)}</td>
                 <td>
-                  <img src={product.url} alt="Product" />
+                  <img src={product.url} alt="Product" width="50" height="50" />
                 </td>
                 <td>
                   <Link to={`/Dashboard/edit/${product.id}`}>
-                    <button className="edit-button">Edit</button>
+                    <button className="edit-button">
+                      <ion-icon name="create-outline"></ion-icon>Edit
+                    </button>
                   </Link>
                 </td>
               </tr>
@@ -72,6 +91,11 @@ const EditPanel = () => {
           </tbody>
         </table>
       </div>
+      {showScroll && (
+        <button className="scroll-to-top" onClick={scrollToTop}>
+          <ion-icon name="chevron-up-circle-outline"></ion-icon>Back to Top
+        </button>
+      )}
     </div>
   );
 };

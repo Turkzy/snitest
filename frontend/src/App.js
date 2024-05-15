@@ -16,6 +16,8 @@ import SalesReport from './pages/SalesReport';
 import LoadingScreen from './pages/LoadingScreen';
 import DeletePanel from './pages/DeletePanel';
 import AddAccount from './pages/AddAccount';
+import Footer from './components/Footer';
+import EditAccount from './pages/EditAccount';
 
 const LoginPanel = () => {
   return (
@@ -25,6 +27,7 @@ const LoginPanel = () => {
         <Route path="/" element={<About />} />
         <Route path="/login" element={<Login />} />
       </Routes>
+      <Footer/>
     </>
   );
 };
@@ -47,6 +50,7 @@ const DashboardPanel = () => {
         <Route path="/SystemManagement" element={<SystemManagement/>}/>
         <Route path="/LoadingScreen" element={<LoadingScreen/>}/>
         <Route path="/AddAccount" element={<AddAccount/>}/>
+        <Route path="/EditAccount/:id" element={<EditAccount/>}/>
       </Routes>
     </>
   );

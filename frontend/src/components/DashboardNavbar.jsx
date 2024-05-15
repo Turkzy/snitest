@@ -17,6 +17,7 @@ const DashboardNavbar = () => {
           <img src={Logo} alt="Logo" />
         </div>
         <h1 className='dashboard-logo-text'>R. Laroya Construction Supply Sales & Inventory</h1>
+        <p>1320 Benavidez St., Brgy. 263 Zone 24, 1013 Tondo Manila</p>
         <nav className='navbar-links'>
           <NavLink to="/Dashboard" activeClassName="active-link"><ion-icon name="home-outline"></ion-icon>Dashboard</NavLink>
           <NavLink to="/Dashboard/product" activeClassName="active-link"><ion-icon name="copy-outline"></ion-icon>Product List</NavLink>
