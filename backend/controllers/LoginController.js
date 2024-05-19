@@ -8,7 +8,7 @@ export const login = async (req, res) => {
         });
         if (admin) {
             if (admin.password === password) {
-                res.status(200).json({ message: "Login successful" });
+                res.status(200).json({ message: "Login successful", usertype: admin.usertype });
             } else {
                 res.status(401).json({ message: "Incorrect password" });
             }
@@ -20,6 +20,7 @@ export const login = async (req, res) => {
         res.status(500).json({ message: "Internal Server Error" });
     }
 };
+
 
 /* GET */
 export const getAdmins = async (req, res) => {

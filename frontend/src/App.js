@@ -18,6 +18,7 @@ import DeletePanel from './pages/DeletePanel';
 import AddAccount from './pages/AddAccount';
 import Footer from './components/Footer';
 import EditAccount from './pages/EditAccount';
+import UserDashboard from './pages/UserDashboard'
 
 const LoginPanel = () => {
   return (
@@ -56,6 +57,16 @@ const DashboardPanel = () => {
   );
 };
 
+const UserDashBoardPanel = () => {
+  return (
+    <>
+    <Routes>
+      <Route path="/" element={<UserDashboard/>}/>
+    </Routes>
+    </>
+  )
+}
+
 function App() {
   return (
     <div className="App">
@@ -63,6 +74,7 @@ function App() {
         <Routes>
           <Route path="/Dashboard/*" element={<DashboardPanel />} />
           <Route path="/*" element={<LoginPanel />} />
+          <Route path="/UserDashboard/*" element={<UserDashBoardPanel />} />
         </Routes>
       </BrowserRouter>
     </div>

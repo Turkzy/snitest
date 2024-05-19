@@ -7,6 +7,7 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [loginStatus, setLoginStatus] = useState('');
     const [loading, setLoading] = useState(false);
+    const [redirecting, setRedirecting] = useState(false);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -22,18 +23,27 @@ const Login = () => {
             });
 
             if (response.ok) {
-                setLoginStatus('success');
-                setTimeout(() => {
-                    window.location.href = '/Dashboard/LoadingScreen';
-                }, 1000);
+                const data = await response.json();
+                setLoginStatus(''); // Clear any existing error messages
+                if (data.usertype === 'Admin') {
+                    setRedirecting(true);
+                    setTimeout(() => {
+                        window.location.href = '/Dashboard/LoadingScreen';
+                    }, 1000);
+                } else if (data.usertype === 'User') {
+                    setRedirecting(true);
+                    setTimeout(() => {
+                        window.location.href = '/UserDashboard';
+                    }, 1000);
+                }
             } else if (response.status === 401) {
                 const data = await response.json();
                 if (data.message === "Incorrect password") {
                     setLoginStatus('failure_password');
-                    setPassword('');  // Clear the password field
+                    setPassword('');
                 } else if (data.message === "Username not found") {
                     setLoginStatus('failure_username');
-                    setUsername('');  // Clear the username field
+                    setUsername('');
                 } else {
                     setLoginStatus('error');
                 }
@@ -76,7 +86,7 @@ const Login = () => {
                 <button type="submit" disabled={loading}>
                     {loading ? 'Logging in...' : 'Login'}
                 </button>
-                {loginStatus === 'success' && <p className='success-message'>Login successful! Redirecting...</p>}
+                {redirecting && <p className='success-message'>Login successful! Redirecting...</p>}
                 {loginStatus === 'failure_password' && <p className="error-message">Invalid password.</p>}
                 {loginStatus === 'failure_username' && <p className="error-message">Invalid username.</p>}
                 {loginStatus === 'error' && <p className="error-message">An error occurred. Please try again later.</p>}

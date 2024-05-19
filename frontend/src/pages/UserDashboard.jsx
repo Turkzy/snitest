@@ -1,8 +1,9 @@
 import React from 'react'
+import "./UserDashboard.css"
 
 const UserDashboard = () => {
   return (
-    <div>UserDashboard</div>
+    <div><h1 className='title-user'>UserDashboard</h1></div>
   )
 }
 
