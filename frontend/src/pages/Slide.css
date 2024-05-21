@@ -1,7 +1,7 @@
 .Newsletter-container {
     position: relative;
     width: 100%;
-    padding-top: 100%; /* Set height to 1x1 aspect ratio */
+    padding-top: 100%;
     overflow: hidden;
   }
   

@@ -19,6 +19,7 @@ import AddAccount from './pages/AddAccount';
 import Footer from './components/Footer';
 import EditAccount from './pages/EditAccount';
 import UserDashboard from './pages/UserDashboard'
+import EmployeeNavbar from './components/EmployeeNavbar'
 
 const LoginPanel = () => {
   return (
@@ -60,6 +61,7 @@ const DashboardPanel = () => {
 const UserDashBoardPanel = () => {
   return (
     <>
+    <EmployeeNavbar/>
     <Routes>
       <Route path="/" element={<UserDashboard/>}/>
     </Routes>
