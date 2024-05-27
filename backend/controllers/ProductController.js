@@ -34,6 +34,7 @@ export const saveProduct = (req, res) => {
     const stocks = req.body.stocks;
     const buyingPrice = req.body.buyingPrice;
     const sellingPrice = req.body.sellingPrice;
+    const category = req.body.category;
     const file = req.files.file;
     const fileSize = file.size;
     const ext = path.extname(file.name);
@@ -47,7 +48,7 @@ export const saveProduct = (req, res) => {
     file.mv(`./public/images/${filename}`, async (err) => {
         if (err) return res.status(500).json({msg: err.message});
         try {
-            await Product.create({name, stocks, buyingPrice, sellingPrice, image: filename, url});
+            await Product.create({name, stocks, buyingPrice, sellingPrice, image: filename, url, category}); 
             res.status(201).json({msg: "Product Created Successfully"});
         } catch (error) {
             console.log(error.message);
@@ -93,11 +94,11 @@ export const updateProduct = async (req, res) => {
         }
     }
 
-    const { name, stocks, buyingPrice, sellingPrice } = req.body;
+    const { name, stocks, buyingPrice, sellingPrice, category } = req.body; 
     const url = `${req.protocol}://${req.get("host")}/images/${filename}`;
 
     try {
-        await Product.update({ name, stocks, buyingPrice, sellingPrice, image: filename, url }, {
+        await Product.update({ name, stocks, buyingPrice, sellingPrice, image: filename, url, category }, { 
             where: {
                 id: req.params.id
             }

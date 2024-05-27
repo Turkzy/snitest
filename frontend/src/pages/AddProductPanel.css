@@ -27,7 +27,8 @@
   font-weight: 500;
 }
 
-.add-product-form input {
+.add-product-form input,
+.add-product-form select {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 5px;

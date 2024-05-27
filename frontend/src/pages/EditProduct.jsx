@@ -10,10 +10,22 @@ const EditProduct = () => {
     const [image, setImage] = useState(null);
     const [url, setUrl] = useState("");
     const [preview, setPreview] = useState(null);
+    const [category, setCategory] = useState('Default'); // Default category value
+    const [categories, setCategories] = useState([]); // State to store categories
     const { id } = useParams();
     const navigate = useNavigate();
 
     useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://localhost:5000/categories');
+                setCategories(response.data); // Set categories state with fetched data
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchData();
+
         const getProductById = async () => {
             const response = await axios.get(`http://localhost:5000/products/${id}`);
             setName(response.data.name);
@@ -23,6 +35,7 @@ const EditProduct = () => {
             setImage(response.data.image);
             setUrl(response.data.url);
             setPreview(response.data.url);
+            setCategory(response.data.category); // Set the category value from the response
         };
 
         getProductById();
@@ -47,6 +60,7 @@ const EditProduct = () => {
         formData.append("stocks", stocks);
         formData.append("buyingPrice", buyingPrice);
         formData.append("sellingPrice", sellingPrice);
+        formData.append("category", category); // Append the category to formData
         formData.append("url", url);
 
         try {
@@ -116,6 +130,22 @@ const EditProduct = () => {
                                 placeholder='Enter Selling Price'
                                 required
                             />
+                        </div>
+                    </div>
+                    <div className='field'>
+                        <label className='label'>Category</label>
+                        <div className='control'>
+                            <select
+                                className='input'
+                                value={category}
+                                onChange={(e) => setCategory(e.target.value)}
+                                required
+                            >
+                                <option value='Default' disabled>Select Category</option>
+                                {categories.map(category => (
+                                    <option key={category.id} value={category.category}>{category.category}</option>
+                                ))}
+                            </select>
                         </div>
                     </div>
                     <div className='field'>

@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 import "./AddProductPanel.css";
-
 
 const AddProductPanel = ({ getProducts }) => {
   const [newProduct, setNewProduct] = useState({
@@ -10,19 +9,42 @@ const AddProductPanel = ({ getProducts }) => {
     stocks: 0,
     buyingPrice: 0,
     sellingPrice: 0,
-    image: ''
+    image: '',
+    category: 'Default' // Default to 'Default'
   });
+  const [categories, setCategories] = useState([]);
   const [preview, setPreview] = useState(null);
   const [file, setFile] = useState("");
   const navigate = useNavigate();
 
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/categories');
+      setCategories(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setNewProduct(prevProduct => ({
-      ...prevProduct,
-      [name]: value
-    }));
+    const parsedValue = name === 'buyingPrice' || name === 'sellingPrice' ? parseInt(value, 10) : value;
+  
+    if (!isNaN(parsedValue) || name !== 'buyingPrice' || name !== 'sellingPrice') {
+      setNewProduct(prevProduct => ({
+        ...prevProduct,
+        [name]: parsedValue
+      }));
+    } else {
+      console.error(`Invalid input for ${name}: ${value}`);
+    
+    }
   };
+  
 
   const handleImageChange = (e) => {
     const image = e.target.files[0];
@@ -40,6 +62,7 @@ const AddProductPanel = ({ getProducts }) => {
     formData.append("stocks", newProduct.stocks);
     formData.append("buyingPrice", newProduct.buyingPrice);
     formData.append("sellingPrice", newProduct.sellingPrice);
+    formData.append("category", newProduct.category);
 
     try {
       const response = await axios.post('http://localhost:5000/products', formData, {
@@ -47,22 +70,22 @@ const AddProductPanel = ({ getProducts }) => {
           'Content-Type': 'multipart/form-data'
         }
       });
-      console.log(response.data); // Log the response for debugging
+      console.log(response.data); 
       navigate("/Dashboard/addPanel");
       setNewProduct({
         name: '',
         stocks: 0,
         buyingPrice: 0,
         sellingPrice: 0,
-        image: ''
+        image: '',
+        category: 'Default' // Reset category after submission
       });
       setPreview(null);
       getProducts();
     } catch (error) {
-      console.error(error); // Log any errors for debugging
+      console.error(error);
     }
   };
-
 
   return (
     <div className='add-product-container'>
@@ -123,6 +146,23 @@ const AddProductPanel = ({ getProducts }) => {
                 placeholder='Selling Price'
                 required
               />
+            </div>
+          </div>
+          <div className='field'>
+            <label className='label'>Category</label>
+            <div className='control'>
+              <select
+                className='input'
+                value={newProduct.category}
+                onChange={handleChange}
+                name='category'
+                required
+              >
+                <option value='Default' disabled>Select Category</option>
+                {categories.map(category => (
+                  <option key={category.id} value={category.category}>{category.category}</option>
+                ))}
+              </select>
             </div>
           </div>
           <div className='field'>

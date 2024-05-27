@@ -48,7 +48,7 @@ const ProductsPanel = () => {
 
   return (
     <div className="products-container">
-      <h1><ion-icon name="copy-outline"></ion-icon>Products</h1>
+      <h1>Products</h1>
       <input
         className='search-text'
         type="text"
@@ -64,6 +64,7 @@ const ProductsPanel = () => {
               <th>Stocks</th>
               <th>Buying Price</th>
               <th>Selling Price</th>
+              <th>Category</th>
               <th>Image</th>
             </tr>
           </thead>
@@ -74,6 +75,7 @@ const ProductsPanel = () => {
                 <td>{product.stocks}</td>
                 <td>{formatPrice(product.buyingPrice)}</td>
                 <td>{formatPrice(product.sellingPrice)}</td>
+                <td>{product.category}</td>
                 <td><img src={product.url} alt="Product" width="50" height="50" /></td>
               </tr>
             ))}

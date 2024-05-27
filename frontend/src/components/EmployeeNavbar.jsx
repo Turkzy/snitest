@@ -21,10 +21,10 @@ const DashboardNavbar = () => {
           <p className='navbar-address'>1320 Benavidez St., Brgy. 263 Zone 24, 1013 Tondo Manila</p>
         </div>
         <nav className='navbar-links'>
-          <NavLink to="/Dashboard" activeClassName="active-link">
+          <NavLink to="" activeClassName="active-link">
             <ion-icon name="home-outline"></ion-icon>Dashboard
           </NavLink>
-          <NavLink to="/Dashboard/product" activeClassName="active-link">
+          <NavLink to="" activeClassName="active-link">
             <ion-icon name="copy-outline"></ion-icon>Product List
           </NavLink>
           <div className='dropdown'>
@@ -32,24 +32,24 @@ const DashboardNavbar = () => {
               <ion-icon name="duplicate-outline"></ion-icon>Manage Product
             </button>
             <div className={`dropdown-menu ${dropdownOpen ? 'show' : ''}`}>
-              <NavLink to="/Dashboard/addPanel" activeClassName="active-link">
+              <NavLink to="" activeClassName="active-link">
                 <ion-icon name="add-circle-outline"></ion-icon>Add Product
               </NavLink>
-              <NavLink to="/Dashboard/editPanel" activeClassName="active-link">
+              <NavLink to="" activeClassName="active-link">
                 <ion-icon name="create-outline"></ion-icon>Edit Product
               </NavLink>
-              <NavLink to="/Dashboard/deletePanel" activeClassName="active-link">
+              <NavLink to="" activeClassName="active-link">
                 <ion-icon name="trash-outline"></ion-icon>Delete Product
               </NavLink>
             </div>
           </div>
-          <NavLink to="/Dashboard/Sales" activeClassName="active-link">
+          <NavLink to="" activeClassName="active-link">
             <ion-icon name="documents-outline"></ion-icon>Sales
           </NavLink>
-          <NavLink to="/Dashboard/SalesReport" activeClassName="active-link">
+          <NavLink to="" activeClassName="active-link">
             <ion-icon name="clipboard-outline"></ion-icon>Sales Report
           </NavLink>
-          <NavLink to="/Dashboard/SystemManagement" activeClassName="active-link">
+          <NavLink to="" activeClassName="active-link">
             <ion-icon name="settings-outline"></ion-icon>System Management
           </NavLink>
           <NavLink to="/" activeClassName="active-link">

@@ -40,7 +40,7 @@ const EditPanel = () => {
   };
 
   const formatPrice = (price) => {
-    return `₱${parseFloat(price).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+    return `₱${Number(parseFloat(price).toFixed(2)).toLocaleString()}`;
   };
 
   const filteredProducts = products.filter((product) =>
@@ -65,6 +65,7 @@ const EditPanel = () => {
               <th>Stocks</th>
               <th>Buying Price</th>
               <th>Selling Price</th>
+              <th>Category</th>
               <th>Image</th>
               <th>Edit</th>
             </tr>
@@ -76,13 +77,14 @@ const EditPanel = () => {
                 <td>{product.stocks}</td>
                 <td>{formatPrice(product.buyingPrice)}</td>
                 <td>{formatPrice(product.sellingPrice)}</td>
+                <td>{product.category}</td>
                 <td>
                   <img src={product.url} alt="Product" width="50" height="50" />
                 </td>
                 <td>
                   <Link to={`/Dashboard/edit/${product.id}`}>
                     <button className="edit-button">
-                      <ion-icon name="create-outline"></ion-icon>Edit
+                      <ion-icon name="create-outline" />Edit
                     </button>
                   </Link>
                 </td>
@@ -93,7 +95,7 @@ const EditPanel = () => {
       </div>
       {showScroll && (
         <button className="scroll-to-top" onClick={scrollToTop}>
-          <ion-icon name="chevron-up-circle-outline"></ion-icon>Back to Top
+          <ion-icon name="chevron-up-circle-outline" />Back to Top
         </button>
       )}
     </div>

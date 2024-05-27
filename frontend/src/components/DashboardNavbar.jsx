@@ -4,10 +4,17 @@ import Logo from '../img/logo.png';
 import './DashboardNavbar.css';
 
 const DashboardNavbar = () => {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState({
+    manageProduct: false,
+    reports: false,
+    manageCategory: false
+  });
 
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
+  const toggleDropdown = (menu) => {
+    setDropdownOpen((prevState) => ({
+      ...prevState,
+      [menu]: !prevState[menu]
+    }));
   };
 
   return (
@@ -28,10 +35,10 @@ const DashboardNavbar = () => {
             <ion-icon name="copy-outline"></ion-icon>Product List
           </NavLink>
           <div className='dropdown'>
-            <button className='dropdown-toggle' onClick={toggleDropdown}>
+            <button className='dropdown-toggle' onClick={() => toggleDropdown('manageProduct')}>
               <ion-icon name="duplicate-outline"></ion-icon>Manage Product
             </button>
-            <div className={`dropdown-menu ${dropdownOpen ? 'show' : ''}`}>
+            <div className={`dropdown-menu ${dropdownOpen.manageProduct ? 'show' : ''}`}>
               <NavLink to="/Dashboard/addPanel" activeClassName="active-link">
                 <ion-icon name="add-circle-outline"></ion-icon>Add Product
               </NavLink>
@@ -43,12 +50,38 @@ const DashboardNavbar = () => {
               </NavLink>
             </div>
           </div>
-          <NavLink to="/Dashboard/Sales" activeClassName="active-link">
-            <ion-icon name="documents-outline"></ion-icon>Sales
+          <div className='dropdown'>
+            <button className='dropdown-toggle' onClick={() => toggleDropdown('reports')}>
+              <ion-icon name="documents-outline"></ion-icon>Reports
+            </button>
+            <div className={`dropdown-menu ${dropdownOpen.reports ? 'show' : ''}`}>
+              <NavLink to="/Dashboard/Sales" activeClassName="active-link">
+                <ion-icon name="document-attach-outline"></ion-icon>Sales
+              </NavLink>
+              <NavLink to="/Dashboard/SalesReport" activeClassName="active-link">
+                <ion-icon name="document-text-outline"></ion-icon>Sales Report
+              </NavLink>
+            </div>
+          </div>
+          <NavLink to="/Dashboard/Categories" activeClassName="active-link">
+            <ion-icon name="ellipsis-horizontal-circle-outline"></ion-icon>Categories
           </NavLink>
-          <NavLink to="/Dashboard/SalesReport" activeClassName="active-link">
-            <ion-icon name="clipboard-outline"></ion-icon>Sales Report
-          </NavLink>
+          <div className='dropdown'>
+            <button className='dropdown-toggle' onClick={() => toggleDropdown('manageCategory')}>
+              <ion-icon name="apps-outline"></ion-icon>Manage Category
+            </button>
+            <div className={`dropdown-menu ${dropdownOpen.manageCategory ? 'show' : ''}`}>
+              <NavLink to="/Dashboard/CategoryAdd" activeClassName="active-link">
+                <ion-icon name="add-circle-outline"></ion-icon>Add Category
+              </NavLink>
+              <NavLink to="/Dashboard/CategoryEdit" activeClassName="active-link">
+                <ion-icon name="create-outline"></ion-icon>Edit Category
+              </NavLink>
+              <NavLink to="/Dashboard/CategoryDelete" activeClassName="active-link">
+                <ion-icon name="trash-outline"></ion-icon>Delete Category
+              </NavLink>
+            </div>
+          </div>
           <NavLink to="/Dashboard/SystemManagement" activeClassName="active-link">
             <ion-icon name="settings-outline"></ion-icon>System Management
           </NavLink>
@@ -59,6 +92,6 @@ const DashboardNavbar = () => {
       </div>
     </header>
   );
-}
+};
 
 export default DashboardNavbar;

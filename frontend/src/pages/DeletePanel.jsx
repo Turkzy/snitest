@@ -75,6 +75,7 @@ const DeletePanel = () => {
               <th>Stocks</th>
               <th>Buying Price</th>
               <th>Selling Price</th>
+              <th>Category</th>
               <th>Image</th>
               <th>Delete</th>
             </tr>
@@ -86,6 +87,7 @@ const DeletePanel = () => {
                 <td>{product.stocks}</td>
                 <td>{formatPrice(product.buyingPrice)}</td>
                 <td>{formatPrice(product.sellingPrice)}</td>
+                <td>{product.category}</td>
                 <td><img src={product.url} alt="Product" width="50" height="50" /></td>
                 <td>
                   <button className="delete-button" onClick={() => deleteProduct(product.id)}>

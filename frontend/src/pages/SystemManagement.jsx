@@ -28,12 +28,18 @@ const SystemManagement = () => {
     }
   };
 
+  const confirmDelete = (id) => {
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      deleteAdmin(id);
+    }
+  };
+
   return (
     <div className="admins-container">
       <h1><ion-icon name="people-outline"></ion-icon> Admins</h1>
       <Link to="/Dashboard/AddAccount">
         <button className="add-admin-btn">
-        <ion-icon name="person-add-outline"></ion-icon> Add Account
+          <ion-icon name="person-add-outline"></ion-icon> Add Account
         </button>
       </Link>
       <div className="table-container">
@@ -56,7 +62,7 @@ const SystemManagement = () => {
                   <Link to={`/Dashboard/EditAccount/${admin.id}`}>
                     <button className="edit-button">Edit</button>
                   </Link>
-                  <button className="delete-button" onClick={() => deleteAdmin(admin.id)}>Delete</button> 
+                  <button className="delete-button" onClick={() => confirmDelete(admin.id)}>Delete</button> 
                 </td>
               </tr>
             ))}

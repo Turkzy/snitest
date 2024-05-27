@@ -5,6 +5,7 @@ import "./Sidebar.css";
 function Sidebar() {
   const [submenu1Open, setSubmenu1Open] = useState(false);
   const [submenu2Open, setSubmenu2Open] = useState(false);
+  const [submenu3Open, setSubmenu3Open] = useState(false); // State for Manage Category submenu
   const [currentTime, setCurrentTime] = useState('');
 
   useEffect(() => {
@@ -20,6 +21,8 @@ function Sidebar() {
       setSubmenu1Open(!submenu1Open);
     } else if (submenu === 2) {
       setSubmenu2Open(!submenu2Open);
+    } else if (submenu === 3) {
+      setSubmenu3Open(!submenu3Open); // Toggle state for Manage Category submenu
     }
   };
 
@@ -64,7 +67,7 @@ function Sidebar() {
         </li>
         <li className={submenu2Open ? '' : 'active'}>
           <div className='Manage' onClick={() => toggleSubmenu(2)}>
-            <ion-icon name="duplicate-outline"></ion-icon>
+            <ion-icon name="documents-outline"></ion-icon>
             Reports
             <ion-icon name={submenu2Open ? "chevron-up-outline" : "chevron-down-outline"} className="dropdown-icon"></ion-icon>
           </div>
@@ -72,12 +75,43 @@ function Sidebar() {
             <ul className="custom-submenu">
               <li>
                 <NavLink to="/Dashboard/Sales" className="submenu-link">
-                  <ion-icon name="add-circle-outline"></ion-icon>Sales
+                  <ion-icon name="document-attach-outline"></ion-icon>Sales
                 </NavLink>
               </li>
               <li>
                 <NavLink to="/Dashboard/SalesReport" className="submenu-link">
-                  <ion-icon name="create-outline"></ion-icon>Sales Report
+                  <ion-icon name="document-text-outline"></ion-icon>Sales Report
+                </NavLink>
+              </li>
+            </ul>
+          )}
+        </li>
+        <li>
+          <NavLink to="/Dashboard" activeClassName="active">
+            <ion-icon name="ellipsis-horizontal-circle-outline"></ion-icon>Categories
+          </NavLink>
+        </li>
+        <li className={submenu3Open ? '' : 'active'}>
+          <div className='Manage' onClick={() => toggleSubmenu(3)}>
+            <ion-icon name="apps-outline"></ion-icon>
+            Manage Category
+            <ion-icon name={submenu3Open ? "chevron-up-outline" : "chevron-down-outline"} className="dropdown-icon"></ion-icon>
+          </div>
+          {submenu3Open && (
+            <ul className="custom-submenu">
+              <li>
+                <NavLink to="/Dashboard/CategoryAdd" className="submenu-link">
+                  <ion-icon name="add-circle-outline"></ion-icon>Add Category
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/Dashboard/CategoryEdit" className="submenu-link">
+                  <ion-icon name="create-outline"></ion-icon>Edit Category
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/Dashboard/CategoryDelete" className="submenu-link">
+                  <ion-icon name="trash-outline"></ion-icon>Delete Category
                 </NavLink>
               </li>
             </ul>
@@ -86,16 +120,6 @@ function Sidebar() {
         <li>
           <NavLink to="/Dashboard/SystemManagement" activeClassName="active">
             <ion-icon name="settings-outline"></ion-icon>System Management
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/" activeClassName="active">
-            <ion-icon name="exit-outline"></ion-icon>Category
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/" activeClassName="active">
-            <ion-icon name="exit-outline"></ion-icon>Manage Category
           </NavLink>
         </li>
         <li>
