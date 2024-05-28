@@ -1,4 +1,5 @@
-.admins-container {
+/* General container styles */
+.categories-container {
   margin-left: 16%;
   background-color: rgba(255, 255, 255, 0.788);
   padding: 20px;
@@ -16,24 +17,24 @@
   overflow-x: auto;
 }
 
-.admins-table {
+.categories-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
 }
 
-.admins-table th,
-.admins-table td {
+.categories-table th,
+.categories-table td {
   padding: 10px;
   border: 1px solid rgb(85, 85, 85);
   text-align: center;
 }
 
-.admins-table th {
-  background-color: #f2f2f2;
+.categories-table th {
+  background-color: #4bb5f3;
 }
 
-.add-admin-btn {
+.add-category-btn {
   background-color: rgb(68, 118, 255);
   color: white;
   padding: 10px 20px;
@@ -42,7 +43,7 @@
   cursor: pointer;
 }
 
-.add-admin-btn ion-icon {
+.add-category-btn ion-icon {
   margin-right: 5px;
 }
 
@@ -82,17 +83,17 @@
   justify-content: center;
 }
 
-.modal-overlay {
+.overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.75);
-  z-index: 1000;
+  z-index: 1000; /* Ensure the overlay is above other elements */
 }
 
-.admin-modal {
+.small-modal {
   background-color: #fff;
   width: 400px;
   padding: 20px;
@@ -102,23 +103,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   position: absolute;
-  box-shadow: 7px 10px 20px black;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-.form-group label {
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-.form-group input,
-.form-group select {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  z-index: 1001; 
 }
 
 .modal-buttons {

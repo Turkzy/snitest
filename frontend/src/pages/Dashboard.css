@@ -1,4 +1,4 @@
-body{
+body {
   background-image: url(../img/bgimage.png);
   background-size: cover;
 }
@@ -9,13 +9,12 @@ body{
   height: 100vh;
   padding: 20px;
   user-select: none;
-  background-color: rgba(255, 255, 255, 0.788); 
-  border-radius: 10px; 
-  color: #000000; 
+  background-color: rgba(255, 255, 255, 0.788);
+  border-radius: 10px;
+  color: #000000;
   margin-top: 15px;
   box-shadow: 10px 7px 20px black;
 }
-
 
 .dashboard-container h1 {
   font-size: 40px;
@@ -31,7 +30,8 @@ body{
 }
 
 .total-products,
-.low-stock-count {
+.low-stock-count,
+.category-count {
   width: 22%;
   border: 1px solid transparent;
   border-radius: 10px;
@@ -40,7 +40,8 @@ body{
 }
 
 .total-products:hover,
-.low-stock-count:hover {
+.low-stock-count:hover,
+.category-count:hover {
   transform: translateY(-5px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
@@ -54,6 +55,13 @@ body{
 
 .low-stock-count {
   background-color: #f75c48;
+  color: whitesmoke;
+  font-weight: bold;
+  text-align: center;
+}
+
+.category-count {
+  background-color: #66bb6a; /* Change the color as desired */
   color: whitesmoke;
   font-weight: bold;
   text-align: center;

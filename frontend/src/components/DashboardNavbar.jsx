@@ -18,7 +18,7 @@ const DashboardNavbar = () => {
   };
 
   return (
-    <header className='dashboard-navbar'>
+    <header className='dashboard-navbar unique-navbar'>
       <div className='navbar-container'>
         <div className='navbar-logo'>
           <img src={Logo} alt="Logo" />
@@ -60,25 +60,6 @@ const DashboardNavbar = () => {
               </NavLink>
               <NavLink to="/Dashboard/SalesReport" activeClassName="active-link">
                 <ion-icon name="document-text-outline"></ion-icon>Sales Report
-              </NavLink>
-            </div>
-          </div>
-          <NavLink to="/Dashboard/Categories" activeClassName="active-link">
-            <ion-icon name="ellipsis-horizontal-circle-outline"></ion-icon>Categories
-          </NavLink>
-          <div className='dropdown'>
-            <button className='dropdown-toggle' onClick={() => toggleDropdown('manageCategory')}>
-              <ion-icon name="apps-outline"></ion-icon>Manage Category
-            </button>
-            <div className={`dropdown-menu ${dropdownOpen.manageCategory ? 'show' : ''}`}>
-              <NavLink to="/Dashboard/CategoryAdd" activeClassName="active-link">
-                <ion-icon name="add-circle-outline"></ion-icon>Add Category
-              </NavLink>
-              <NavLink to="/Dashboard/CategoryEdit" activeClassName="active-link">
-                <ion-icon name="create-outline"></ion-icon>Edit Category
-              </NavLink>
-              <NavLink to="/Dashboard/CategoryDelete" activeClassName="active-link">
-                <ion-icon name="trash-outline"></ion-icon>Delete Category
               </NavLink>
             </div>
           </div>

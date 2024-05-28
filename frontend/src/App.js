@@ -15,11 +15,11 @@ import Sales from './pages/Sales';
 import SalesReport from './pages/SalesReport';
 import LoadingScreen from './pages/LoadingScreen';
 import DeletePanel from './pages/DeletePanel';
-import AddAccount from './pages/AddAccount';
 import Footer from './components/Footer';
-import EditAccount from './pages/EditAccount';
 import UserDashboard from './pages/UserDashboard'
 import EmployeeNavbar from './components/EmployeeNavbar'
+import ManageCategory from './pages/ManageCategory'
+import Category from './pages/CategoriesPanel'
 
 const LoginPanel = () => {
   return (
@@ -51,8 +51,10 @@ const DashboardPanel = () => {
         <Route path="/SalesReport" element={<SalesReport/>}/>
         <Route path="/SystemManagement" element={<SystemManagement/>}/>
         <Route path="/LoadingScreen" element={<LoadingScreen/>}/>
-        <Route path="/AddAccount" element={<AddAccount/>}/>
-        <Route path="/EditAccount/:id" element={<EditAccount/>}/>
+
+        <Route path="/categories" element={<Category/>}/>
+        <Route path="/managecategories" element={<ManageCategory/>}/>
+
       </Routes>
     </>
   );

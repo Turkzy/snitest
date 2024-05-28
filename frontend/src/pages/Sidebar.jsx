@@ -87,35 +87,9 @@ function Sidebar() {
           )}
         </li>
         <li>
-          <NavLink to="/Dashboard" activeClassName="active">
-            <ion-icon name="ellipsis-horizontal-circle-outline"></ion-icon>Categories
+          <NavLink to="/Dashboard/managecategories" activeClassName="active">
+          <ion-icon name="apps-outline"></ion-icon>Manage Categories
           </NavLink>
-        </li>
-        <li className={submenu3Open ? '' : 'active'}>
-          <div className='Manage' onClick={() => toggleSubmenu(3)}>
-            <ion-icon name="apps-outline"></ion-icon>
-            Manage Category
-            <ion-icon name={submenu3Open ? "chevron-up-outline" : "chevron-down-outline"} className="dropdown-icon"></ion-icon>
-          </div>
-          {submenu3Open && (
-            <ul className="custom-submenu">
-              <li>
-                <NavLink to="/Dashboard/CategoryAdd" className="submenu-link">
-                  <ion-icon name="add-circle-outline"></ion-icon>Add Category
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/Dashboard/CategoryEdit" className="submenu-link">
-                  <ion-icon name="create-outline"></ion-icon>Edit Category
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/Dashboard/CategoryDelete" className="submenu-link">
-                  <ion-icon name="trash-outline"></ion-icon>Delete Category
-                </NavLink>
-              </li>
-            </ul>
-          )}
         </li>
         <li>
           <NavLink to="/Dashboard/SystemManagement" activeClassName="active">
