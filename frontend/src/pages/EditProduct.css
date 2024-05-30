@@ -1,83 +1,70 @@
 /* EditProduct.css */
 
-.writes {
-    margin-top: 20px;
-  }
-  
-  .write {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .field {
-    margin-bottom: 20px;
-  }
-  
-  .label {
-    font-weight: bold;
-  }
-  
-  .input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    outline: none;
-  }
-  
-  .file {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .file-input {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    cursor: pointer;
-  }
-  
-  .fileko {
-    display: inline-block;
-    background-color: #007bff;
-    color: #fff;
-    padding: 8px 15px;
-    border-radius: 3px;
-    cursor: pointer;
-  }
-  
-  .file-laber {
-    pointer-events: none;
-  }
-  
-  .preview-image {
-    margin-top: 10px;
-  }
-  
-  .preview-image img {
-    max-width: 100%;
-    max-height: 300px;
-  }
-  
-  .field-button {
-    text-align: center;
-  }
-  
-  .publish-button button {
-    background-color: #28a745;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .publish-button button:hover {
-    background-color: #218838;
-  }
-  
+.edit-product-container {
+  width: 80%;
+  margin-left: 16%;
+  background-color: white;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+.edit-field {
+  margin-bottom: 20px;
+}
+
+.edit-label {
+  font-weight: bold;
+}
+
+.edit-input {
+  width: 50%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  outline: none;
+}
+
+.edit-image-preview {
+  margin-top: 10px;
+}
+
+.edit-image-preview img {
+  max-width: 100%;
+  max-height: 300px;
+  border: 1px solid #8d8d8d;
+  margin-bottom: 20px;
+}
+
+.edit-button-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.edit-button-success {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.edit-button-success:hover {
+  background-color: #45a049;
+}
+
+.edit-button-cancel {
+  background-color: #f44336;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.edit-button-cancel:hover {
+  background-color: #d32f2f;
+}

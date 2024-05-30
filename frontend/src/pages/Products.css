@@ -42,18 +42,6 @@
     border-collapse: collapse;
   }
   
-  .products-table th,
-  .products-table td {
-    padding: 12px;
-    text-align: center;
-    border-bottom: 1px solid #ddd;
-    border: 2px solid rgb(0, 0, 0);
-  }
-  
-  .products-table th {
-    font-weight: bold;
-    background-color: rgb(98, 166, 255);
-  }
   
   .products-table td img {
     width: 50px;

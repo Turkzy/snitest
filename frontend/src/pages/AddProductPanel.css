@@ -1,63 +1,85 @@
+/* AddProductPanel.css */
+
 .add-product-container {
-  width: 50%;
-  padding: 20px;
-  margin: 0 auto;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  background-color: rgba(255, 255, 255, 0.795);
-  border-radius: 10px;
-  box-shadow: 7px 16px 20px black;
-}
-
-.add-product-title {
-  font-size: 1.5rem;
-  margin-bottom: 20px;
-}
-
-.add-product-form {
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding: 20px;
-  border-radius: 10px;
 }
 
-.add-product-form label {
+.add-product-form-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 800px;
+}
+
+.field {
   margin-bottom: 15px;
-  font-size: 1.5em;
+  width: 100%; /* Set the width of the field to 100% */
   font-weight: 500;
 }
 
-.add-product-form input,
-.add-product-form select {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-bottom: 15px;
-  width: 50%;
+.field input,
+.field select {
+  width: calc(80% - 20px); 
+  padding: 5px;
+  box-sizing: border-box; 
 }
 
-.add-product-form button {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
+.add-product-form {
+  width: 60%;
+}
+
+.field {
+  margin-bottom: 15px;
+}
+
+.field-button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+}
+
+.button-success, .button-cancel {
+  padding: 10px 15px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
 }
 
-.add-product-form button:hover {
-  background-color: #0056b3;
+.button-success {
+  background-color: rgb(68, 118, 255);
+  color: white;
+}
+
+.button-success:hover {
+  background-color: rgb(43, 72, 153);
+}
+
+.button-cancel {
+  background-color: #f44336;
+  color: white;
+}
+
+.button-cancel:hover {
+  background-color: #e57373;
 }
 
 .image-preview {
-  margin-top: 20px;
-  margin-left: 18%;
+  width: 50%;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid #555555;
 }
 
 .image-preview img {
-  width: 500px;
+  width: 100%; /* Make the image fill its container */
   height: auto;
+  border: 1px solid #ccc;
+  padding: 5px;
   border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }

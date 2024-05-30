@@ -1,6 +1,8 @@
+// EditProduct.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router';
+import './EditProduct.css'
 
 const EditProduct = () => {
     const [name, setName] = useState("");
@@ -75,17 +77,21 @@ const EditProduct = () => {
         }
     };
 
+    const handleCancel = () => {
+        navigate("/Dashboard/EditPanel"); // Redirect to EditPanel
+    };
+
     return (
-        <div className='add-product-container'>
+        <div className='edit-product-container'>
             <h1>Edit Product</h1>
-            <div className='add-product-form'>
+            <div className='edit-product-form'>
                 <form onSubmit={updateProduct}>
-                    <div className='field'>
-                        <label className='label'>Product Name</label>
-                        <div className='control'>
+                    <div className='edit-field'>
+                        <label className='edit-label'>Product Name</label>
+                        <div className='edit-control'>
                             <input
                                 type='text'
-                                className='input'
+                                className='edit-input'
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                                 placeholder='Enter Name'
@@ -93,12 +99,12 @@ const EditProduct = () => {
                             />
                         </div>
                     </div>
-                    <div className='field'>
-                        <label className='label'>Stocks</label>
-                        <div className='control'>
+                    <div className='edit-field'>
+                        <label className='edit-label'>Stocks</label>
+                        <div className='edit-control'>
                             <input
                                 type='number'
-                                className='input'
+                                className='edit-input'
                                 value={stocks}
                                 onChange={(e) => setStocks(e.target.value)}
                                 placeholder='Enter Stocks'
@@ -106,12 +112,12 @@ const EditProduct = () => {
                             />
                         </div>
                     </div>
-                    <div className='field'>
-                        <label className='label'>Buying Price</label>
-                        <div className='control'>
+                    <div className='edit-field'>
+                        <label className='edit-label'>Buying Price</label>
+                        <div className='edit-control'>
                             <input
                                 type='number'
-                                className='input'
+                                className='edit-input'
                                 value={buyingPrice}
                                 onChange={(e) => setBuyingPrice(e.target.value)}
                                 placeholder='Enter Buying Price'
@@ -119,12 +125,12 @@ const EditProduct = () => {
                             />
                         </div>
                     </div>
-                    <div className='field'>
-                        <label className='label'>Selling Price</label>
-                        <div className='control'>
+                    <div className='edit-field'>
+                        <label className='edit-label'>Selling Price</label>
+                        <div className='edit-control'>
                             <input
                                 type='number'
-                                className='input'
+                                className='edit-input'
                                 value={sellingPrice}
                                 onChange={(e) => setSellingPrice(e.target.value)}
                                 placeholder='Enter Selling Price'
@@ -132,11 +138,11 @@ const EditProduct = () => {
                             />
                         </div>
                     </div>
-                    <div className='field'>
-                        <label className='label'>Category</label>
-                        <div className='control'>
+                    <div className='edit-field'>
+                        <label className='edit-label'>Category</label>
+                        <div className='edit-control'>
                             <select
-                                className='input'
+                                className='edit-input'
                                 value={category}
                                 onChange={(e) => setCategory(e.target.value)}
                                 required
@@ -148,24 +154,27 @@ const EditProduct = () => {
                             </select>
                         </div>
                     </div>
-                    <div className='field'>
-                        <label className='label'>Image</label>
-                        <div className='control'>
+                    <div className='edit-field'>
+                        <label className='edit-label'>Image</label>
+                        <div className='edit-control'>
                             <input
                                 type='file'
-                                className='input'
+                                className='edit-input'
                                 onChange={loadImage}
                             />
                         </div>
                     </div>
 
                     {preview && (
-                        <div className='image-preview'>
+                        <div className='edit-image-preview'>
                             <img src={preview} alt='Product Preview' />
                         </div>
                     )}
 
-                    <button className='button-success' type='submit'>Update</button>
+                    <div className='edit-button-group'>
+                        <button className='edit-button-success' type='submit'>Update</button>
+                        <button className='edit-button-cancel' type='button' onClick={handleCancel}>Cancel</button>
+                    </div>
                 </form>
             </div>
         </div>

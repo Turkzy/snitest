@@ -85,7 +85,13 @@ export const updateProduct = async (req, res) => {
         }
 
         const filepath = `./public/images/${product.image}`;
-        fs.unlinkSync(filepath);
+        if (fs.existsSync(filepath)) {
+            try {
+                fs.unlinkSync(filepath);
+            } catch (err) {
+                return res.status(500).json({ msg: "Failed to delete existing image" });
+            }
+        }
 
         try {
             await file.mv(`./public/images/${filename}`);
@@ -94,11 +100,11 @@ export const updateProduct = async (req, res) => {
         }
     }
 
-    const { name, stocks, buyingPrice, sellingPrice, category } = req.body; 
+    const { name, stocks, buyingPrice, sellingPrice, category } = req.body;
     const url = `${req.protocol}://${req.get("host")}/images/${filename}`;
 
     try {
-        await Product.update({ name, stocks, buyingPrice, sellingPrice, image: filename, url, category }, { 
+        await Product.update({ name, stocks, buyingPrice, sellingPrice, image: filename, url, category }, {
             where: {
                 id: req.params.id
             }
@@ -109,6 +115,7 @@ export const updateProduct = async (req, res) => {
         return res.status(500).json({ msg: "Internal Server Error" });
     }
 };
+
 
 /* DELETE */
 export const deleteProduct = async (req, res) => {

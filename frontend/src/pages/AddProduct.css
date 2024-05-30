@@ -4,8 +4,14 @@
   margin-left: 15%;
 }
 
-.products-container h1{
+.title {
   font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.button-container {
+  text-align: right;
+  margin-bottom: 20px;
 }
 
 .add-product-btn {
@@ -15,16 +21,17 @@
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
   font-size: 16px;
-  margin-bottom: 20px;
   cursor: pointer;
   border-radius: 10px;
-  margin-left: 85%;
 }
 
 .add-product-btn:hover {
   background-color: rgb(43, 72, 153);
+}
+
+.table-container {
+  width: 100%;
 }
 
 .products-table {
@@ -47,7 +54,6 @@
 }
 
 .edit-button {
-  
   background-color: #4CAF50;
   color: white;
   padding: 10px 15px;
@@ -74,5 +80,42 @@
   background-color: rgb(165, 41, 41);
 }
 
+.scroll-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+}
 
+.scroll-to-top:hover {
+  background-color: #555;
+}
 
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  max-width: 1000px;
+  width: 100%;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+}

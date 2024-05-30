@@ -6,8 +6,14 @@ const Product = db.define('product', {
     stocks: DataTypes.INTEGER,
     buyingPrice: DataTypes.FLOAT,
     sellingPrice: DataTypes.FLOAT,
-    image: DataTypes.STRING,
-    url: DataTypes.STRING,
+    image: {
+        type: DataTypes.STRING,
+        allowNull: true, // Allow null values for image
+    },
+    url: {
+        type: DataTypes.STRING,
+        allowNull: true, // Allow null values for url
+    },
     category: DataTypes.STRING,
 }, {
     freezeTableName: true

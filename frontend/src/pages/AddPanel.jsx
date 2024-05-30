@@ -40,12 +40,14 @@ const AddPanel = () => {
 
   return (
     <div className="products-container">
-      <h1>Add Products</h1>
-      <Link to="/Dashboard/Add">
-        <button className="add-product-btn">
-          <ion-icon name="add-circle-outline"></ion-icon>Add Product
-        </button>
-      </Link>
+      <div className="header">
+        <h1>Add Products</h1>
+        <Link to="/Dashboard/Add">
+          <button className="add-product-btn">
+            <ion-icon name="add-circle-outline"></ion-icon>Add Product
+          </button>
+        </Link>
+      </div>
       <div className="table-container">
         <table className="products-table">
           <thead>
@@ -65,7 +67,7 @@ const AddPanel = () => {
                 <td>{product.stocks}</td>
                 <td>{formatPrice(product.buyingPrice)}</td>
                 <td>{formatPrice(product.sellingPrice)}</td>
-                <td>{product.category}</td> {/* Display category */}
+                <td>{product.category}</td>
                 <td><img src={product.url} alt="Product" width="50" height="50" /></td>
               </tr>
             ))}
