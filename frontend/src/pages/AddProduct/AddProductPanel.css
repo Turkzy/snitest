@@ -1,0 +1,87 @@
+
+.addProductPanel-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.addProductPanel-form-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 800px;
+}
+
+.addProductPanel-field {
+  margin-bottom: 15px;
+  width: 100%;
+  font-weight: 500;
+}
+
+.addProductPanel-field input,
+.addProductPanel-field select {
+  width: calc(80% - 20px);
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.addProductPanel-form {
+  width: 60%;
+}
+
+.addProductPanel-field {
+  margin-bottom: 15px;
+}
+
+.addProductPanel-field-button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+}
+
+.addProductPanel-button-success {
+  padding: 10px 55px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #4caf50;
+  color: white;
+}
+
+.addProductPanel-button-success:hover {
+  background-color: #45a049;
+}
+
+.addProductPanel-button-cancel {
+  padding: 10px 55px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #ec281a;
+  color: white;
+  position: absolute;
+  right: 10%;
+}
+
+.addProductPanel-button-cancel:hover {
+  background-color: #ad2117;
+}
+
+.addProductPanel-image-preview {
+  width: 50%;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid #555555;
+}
+
+.addProductPanel-image-preview img {
+  width: 100%;
+  height: auto;
+  border: 1px solid #ccc;
+  padding: 5px;
+  border-radius: 5px;
+}

@@ -21,10 +21,13 @@ const DashboardNavbar = () => {
           <p className='navbar-address'>1320 Benavidez St., Brgy. 263 Zone 24, 1013 Tondo Manila</p>
         </div>
         <nav className='navbar-links'>
-          <NavLink to="/" activeClassName="active-link">
+          <NavLink to="/UserDashboard" activeClassName="active-link">
             <ion-icon name="home-outline"></ion-icon>Dashboard
           </NavLink>
-          <NavLink to="" activeclassName="active-link">
+          <NavLink to="/UserDashboard/POS" activeclassName="active-link">
+            <ion-icon name="newspaper-outline"></ion-icon>POS
+          </NavLink>
+          <NavLink to="/UserDashboard/ProductsListUser" activeclassName="active-link">
             <ion-icon name="copy-outline"></ion-icon>Product List
           </NavLink>
           <NavLink to="" className="unclickable-link">
@@ -46,12 +49,9 @@ const DashboardNavbar = () => {
             </div>
           </NavLink>
           <NavLink to="" className="unclickable-link">
-            <ion-icon name="documents-outline"></ion-icon>Sales
-          </NavLink>
-          <NavLink to="" className="unclickable-link">
             <ion-icon name="clipboard-outline"></ion-icon>Sales Report
           </NavLink>
-          <NavLink to="/SystemManagement" activeClassName="active-link">
+          <NavLink to="" className="unclickable-link">
             <ion-icon name="settings-outline"></ion-icon>System Management
           </NavLink>
           <NavLink to="/" activeClassName="active-link">

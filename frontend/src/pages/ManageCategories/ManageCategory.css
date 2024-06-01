@@ -1,0 +1,173 @@
+.categories-container {
+  margin-left: 250px;
+  padding: 40px;
+  user-select: none;
+  background-color: rgba(255, 255, 255, 0.815);
+  color: #000000;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  height: auto;
+  overflow-y: auto;
+}
+
+.categories-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.categories-table th,
+.categories-table td {
+  padding: 10px;
+  border: 1px solid rgb(85, 85, 85);
+  text-align: center;
+}
+
+.categories-table th:first-child,
+.categories-table td:first-child {
+  width: 70%; /* Adjust as needed */
+}
+
+.categories-table th:last-child,
+.categories-table td:last-child {
+  width: 30%; /* Adjust as needed */
+}
+
+.categories-table th {
+  background-color: #4bb5f3;
+}
+
+.add-category-btn {
+  background-color: rgb(68, 118, 255);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-category-btn ion-icon {
+  margin-right: 5px;
+}
+
+.edit-button,
+.delete-button {
+  margin-right: 5px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
+.edit-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.delete-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.scroll-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 1000; /* Ensure the overlay is above other elements */
+}
+
+.small-modal {
+  background-color: #fff;
+  width: 400px;
+  padding: 20px;
+  border-radius: 8px;
+  margin: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  z-index: 1001; 
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.save-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cancel-button {
+  background-color: #dc3545;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.categories-edit-field {
+  padding: 10px;
+  font-size: 15px;
+}
+
+.message-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1002;
+}
+
+.message-container.add {
+  background-color: #007bff;
+}
+
+.message-container.update {
+  background-color: #28a745;
+}
+
+.message-container.delete {
+  background-color: #dc3545;
+}
+
+.close-message-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  margin-left: 10px;
+  cursor: pointer;
+}

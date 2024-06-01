@@ -1,0 +1,81 @@
+/* POS.css */
+
+.pos-container {
+    margin-left: 250px;
+    padding: 40px;
+    user-select: none;
+    background-color: rgba(255, 255, 255, 0.815);
+    color: #000000;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    height: calc(100vh - 40px);
+    overflow-y: auto;
+  }
+  
+  .pos-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .pos-inputs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .pos-inputs input, .pos-inputs button {
+    width: 30%;
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .pos-inputs button {
+    background: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .pos-inputs button:hover {
+    background: #0056b3;
+  }
+  
+  .pos-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .pos-table th, .pos-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .pos-table th {
+    background: #007bff;
+    color: white;
+  }
+  
+  .pos-total {
+    text-align: center;
+  }
+  
+  .pos-total h2 {
+    margin-bottom: 20px;
+  }
+  
+  .pos-total button {
+    padding: 10px 20px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .pos-total button:hover {
+    background: #218838;
+  }
+  

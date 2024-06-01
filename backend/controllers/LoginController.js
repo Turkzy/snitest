@@ -10,10 +10,17 @@ export const login = async (req, res) => {
             if (admin.password === password) {
                 res.status(200).json({ message: "Login successful", usertype: admin.usertype });
             } else {
-                res.status(401).json({ message: "Incorrect password" });
+                res.status(401).json({ message: "Invalid password" });
             }
         } else {
-            res.status(401).json({ message: "Username not found" });
+            const passwordCheck = await Admin.findOne({
+                where: { password }
+            });
+            if (passwordCheck) {
+                res.status(401).json({ message: "Invalid username" });
+            } else {
+                res.status(401).json({ message: "Invalid username and password" });
+            }
         }
     } catch (error) {
         console.log(error.message);

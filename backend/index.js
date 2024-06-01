@@ -1,9 +1,10 @@
 import express from "express";
 import FileUpload from "express-fileupload";
 import cors from "cors";
-import ProductRoute from "./routes/ProductRoute.js"
+import ProductRoute from "./routes/ProductRoute.js";
 import LoginRoute from "./routes/LoginRoute.js";
 import CategoryRoute from "./routes/CategoryRoute.js";
+import POSRoute from "./routes/POSRoute.js";
 
 const app = express();
 
@@ -15,5 +16,6 @@ app.use(express.static("public"));
 app.use(ProductRoute);
 app.use(LoginRoute);
 app.use(CategoryRoute);
+app.use(POSRoute);
 
 app.listen(5000, () => console.log("Server is Running..."));

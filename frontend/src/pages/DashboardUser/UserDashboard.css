@@ -1,0 +1,99 @@
+.UsrDash-container {
+    margin-left: 250px;
+    padding: 40px;
+    user-select: none;
+    background-color: rgba(255, 255, 255, 0.815);
+    color: #000000;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    height: calc(100vh - 40px);
+    overflow-y: auto;
+  }
+  
+  .UsrDash-container h1 {
+    font-size: 36px;
+    margin-bottom: 30px;
+    color: #333;
+    text-align: left;
+  }
+  
+  .UsrDash-stats {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .UsrDash-total-products,
+  .UsrDash-low-stock-count,
+  .UsrDash-category-count {
+    flex: 1;
+    max-width: calc(33.333% - 20px);
+    background-color: #2a8bf3;
+    color: whitesmoke;
+    font-weight: bold;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+  }
+  
+  .UsrDash-low-stock-count {
+    background-color: #f75c48;
+  }
+  
+  .UsrDash-category-count {
+    background-color: #66bb6a;
+  }
+  
+  .UsrDash-total-products:hover,
+  .UsrDash-low-stock-count:hover,
+  .UsrDash-category-count:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .UsrDash-warning {
+    background-color: #ffcccc;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    color: #c0392b;
+    font-weight: bold;
+  }
+  
+  .UsrDash-low-stock-products-container {
+    margin-bottom: 30px;
+  }
+  
+  .UsrDash-low-stock-products-table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .UsrDash-th,
+  .UsrDash-td {
+    border: 1px solid #858585;
+    padding: 12px;
+    text-align: center;
+  }
+  
+  .UsrDash-th {
+    background-color: #ca4343;
+    font-weight: bold;
+    color: #fff;
+    border: 1px solid black;
+  }
+  
+  .UsrDash-low-stock-products-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .UsrDash-low-stock-product-item td.UsrDash-td {
+    color: #333;
+    font-size: 14px;
+  }
+  
+  
+  

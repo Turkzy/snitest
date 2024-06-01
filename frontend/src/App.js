@@ -1,25 +1,38 @@
-import Login from './pages/Login';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+/* LOGIN */
+import Login from './pages/Login/Login';
+import About from './pages/About/about';
 import LoginNavbar from './components/LoginNavbar';
-import About from './pages/about';
-import DashboardNavbar from './components/DashboardNavbar';
-import Products from './pages/ProductsPanel';
-import Sidebar from './pages/Sidebar';
-import AddPanel from './pages/AddPanel';
-import EditPanel from './pages/EditPanel';
-import SystemManagement from './pages/SystemManagement';
-import AddProductPanel from './pages/AddProductPanel';
-import Dashboard from './pages/Dashboard';
-import EditProduct from './pages/EditProduct';
-import Sales from './pages/Sales';
-import SalesReport from './pages/SalesReport';
-import LoadingScreen from './pages/LoadingScreen';
-import DeletePanel from './pages/DeletePanel';
 import Footer from './components/Footer';
-import UserDashboard from './pages/UserDashboard'
+
+/* COMPONENTS ADMIN*/
+import DashboardNavbar from './components/DashboardNavbar';
+
+/* DASHBOARD ADMIN*/
+import Sidebar from './pages/Sidebar/Sidebar';
+import Dashboard from './pages/DashboardAdmin/AdminDashboard';
+import Products from './pages/ProductList/ProductsList';
+import ManageCategory from './pages/ManageCategories/ManageCategory'
+import SystemManagement from './pages/SystemManagement/SystemManagement';
+
+import AddPanel from './pages/AddProduct/AddProduct';
+import EditPanel from './pages/EditProduct/EditProduct';
+
+import AddProductPanel from './pages/AddProduct/AddProductPanel';
+import EditProduct from './pages/EditProduct/EditProductPanel';
+import SalesReport from './pages/SalesReport/SalesReport';
+import LoadingScreen from './pages/LoadingScreen/LoadingScreen';
+import DeletePanel from './pages/DeleteProduct/DeleteProduct';
+
+
+/* COMPONENTS EMPLOYEE*/
 import EmployeeNavbar from './components/EmployeeNavbar'
-import ManageCategory from './pages/ManageCategory'
-import Category from './pages/CategoriesPanel'
+/* DASHBOARD EMPLOYEE*/
+import UserDashboard from './pages/DashboardUser/UserDashboard'
+import SidebarUser from "./pages/SidebarUser/SidebarUser";
+import POS from './pages/POS/POS';
+import ProductsListUser from "./pages/ProductListUser/ProductsListUser";
 
 const LoginPanel = () => {
   return (
@@ -47,12 +60,10 @@ const DashboardPanel = () => {
         <Route path="/EditPanel" element={<EditPanel/>}/>
         <Route path="/DeletePanel" element={<DeletePanel/>}/>
         <Route path="/edit/:id" element={<EditProduct/>}/>
-        <Route path="/Sales" element={<Sales/>}/>
         <Route path="/SalesReport" element={<SalesReport/>}/>
         <Route path="/SystemManagement" element={<SystemManagement/>}/>
         <Route path="/LoadingScreen" element={<LoadingScreen/>}/>
 
-        <Route path="/categories" element={<Category/>}/>
         <Route path="/managecategories" element={<ManageCategory/>}/>
 
       </Routes>
@@ -64,8 +75,12 @@ const UserDashBoardPanel = () => {
   return (
     <>
     <EmployeeNavbar/>
+    <SidebarUser/>
     <Routes>
       <Route path="/" element={<UserDashboard/>}/>
+      <Route path="/POS" element={<POS/>}/>
+      <Route path="/ProductsListUser" element={<ProductsListUser/>}/>
+      
     </Routes>
     </>
   )

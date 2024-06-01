@@ -1,0 +1,9 @@
+.unclickable-link {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  
+  .unclickable-link:hover {
+    color: inherit;
+    text-decoration: none;
+  }
