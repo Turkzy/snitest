@@ -99,7 +99,7 @@ const SalesReport = () => {
     filtered = Object.entries(groupedTransactions).map(([dateTime, transactions]) => ({
       dateTime,
       transactions,
-      totalAmount: transactions.reduce((total, transaction) => total + parseFloat(transaction.totalAmount), 0)
+      totalAmount: transactions.reduce((total, transaction) => total + parseFloat(transaction.subTotal), 0)
     }));
   
     setFilteredTransactions(filtered);
