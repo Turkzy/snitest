@@ -40,8 +40,12 @@ const EditProduct = () => {
   };
 
   const formatPrice = (price) => {
-    return `₱${parseFloat(price).toFixed(2).toLocaleString()}`;
+    return `₱${parseFloat(price).toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
   };
+  
 
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchQuery.toLowerCase())
