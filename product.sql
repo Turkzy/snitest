@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 28, 2024 at 07:48 PM
+-- Generation Time: Jun 03, 2024 at 01:32 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -30,12 +30,12 @@ SET time_zone = "+00:00";
 CREATE TABLE `product` (
   `id` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `stocks` int(11) NOT NULL,
-  `buyingPrice` float NOT NULL,
-  `sellingPrice` float NOT NULL,
-  `category` varchar(255) NOT NULL,
+  `stocks` int(11) DEFAULT NULL,
+  `buyingPrice` float DEFAULT NULL,
+  `sellingPrice` float DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
   `url` varchar(255) DEFAULT NULL,
+  `category` varchar(255) DEFAULT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -44,10 +44,9 @@ CREATE TABLE `product` (
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`id`, `name`, `stocks`, `buyingPrice`, `sellingPrice`, `category`, `image`, `url`, `createdAt`, `updatedAt`) VALUES
-(133, 'ISG1 INFRARED SAUNA', 3, 3000, 3500, 'Infrared Saunas', 'ffbeefdc0ccde3aa4bf671ea04d756bb.png', 'http://localhost:5000/images/ffbeefdc0ccde3aa4bf671ea04d756bb.png', '2024-05-27 16:12:09', '2024-05-27 16:12:09'),
-(134, 'ISG2 INFRARED SAUNA', 5, 3000, 3500, 'Infrared Saunas', 'e2af7f75d5269023db14f11e9f768e6a.png', 'http://localhost:5000/images/e2af7f75d5269023db14f11e9f768e6a.png', '2024-05-27 16:13:18', '2024-05-27 16:14:23'),
-(135, 'ISG3 INFRARED SAUNA', 5, 3500, 3700, 'Infrared Saunas', '5cfd5cb12bf4232e60d497c4ccfbc5d7.png', 'http://localhost:5000/images/5cfd5cb12bf4232e60d497c4ccfbc5d7.png', '2024-05-27 16:17:31', '2024-05-28 15:07:09');
+INSERT INTO `product` (`id`, `name`, `stocks`, `buyingPrice`, `sellingPrice`, `image`, `url`, `category`, `createdAt`, `updatedAt`) VALUES
+(49, '105A COUNTERTOP BASIN', 0, 1900, 2300, '7313a6672a838e95d413ebaec91fa3dd.png', 'http://localhost:5000/images/7313a6672a838e95d413ebaec91fa3dd.png', 'water meters', '2024-06-01 02:55:59', '2024-06-03 11:17:29'),
+(50, '105A DIA-B COUNTERTOP BASIN', 0, 1900, 2350, 'c1bf2e52d9dcbfed7f1d400b1df02937.png', 'http://localhost:5000/images/c1bf2e52d9dcbfed7f1d400b1df02937.png', 'stair nosings', '2024-06-01 02:58:11', '2024-06-03 11:17:34');
 
 --
 -- Indexes for dumped tables
@@ -67,7 +66,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=137;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
