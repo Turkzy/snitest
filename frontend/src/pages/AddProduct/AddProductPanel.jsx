@@ -149,18 +149,20 @@ const AddProductPanel = ({ onSuccess, closeModal }) => {
             <div className='addProductPanel-field'>
               <label className='addProductPanel-label'>Category</label>
               <div className='addProductPanel-control'>
-                <select
-                  className='addProductPanel-input'
-                  value={newProduct.category}
-                  onChange={handleChange}
-                  name='category'
-                  required
-                >
-                  <option value='Default' disabled>Select Category</option>
-                  {categories.map(category => (
+              <select
+                className='addProductPanel-input'
+                value={newProduct.category}
+                onChange={handleChange}
+                name='category'
+                required
+              >
+                <option value='Default' disabled>Select Category</option>
+                {categories
+                  .sort((a, b) => a.category.localeCompare(b.category)) // Sort the categories alphabetically
+                  .map(category => (
                     <option key={category.id} value={category.category}>{category.category}</option>
                   ))}
-                </select>
+              </select>
               </div>
             </div>
             <div className='addProductPanel-field'>
