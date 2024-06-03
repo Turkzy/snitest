@@ -46,18 +46,21 @@
   table-layout: fixed;
 }
 
-.addProduct-th,
-.addProduct-td {
-  border: 1px solid rgb(141, 141, 141);
-  padding: 8px;
-  text-align: center;
-}
-
 .addProduct-th {
   background-color: #248beb;
-  position: sticky;
-  top: 0;
-  border: 1px solid black;
+    position: sticky;
+    top: 0;
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+}
+
+.addProduct-td {
+  border: 1px solid rgb(141, 141, 141);
+    padding: 8px;
+    text-align: center;
+    height: 50px;
+    vertical-align: middle; 
 }
 
 .add-scroll-to-top {
@@ -105,8 +108,3 @@
   margin-left: 10px;
   cursor: pointer;
 }
-
-
-
-
-

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import axios from "axios";
+import axios from 'axios';
 
 const ProductsListUser = () => {
   const [products, setProducts] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('All');
   const [showScroll, setShowScroll] = useState(false);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ const ProductsListUser = () => {
 
   const getProducts = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/products");
+      const response = await axios.get('http://localhost:5000/products');
       setProducts(response.data);
     } catch (error) {
       console.log(error);
@@ -43,12 +43,12 @@ const ProductsListUser = () => {
   };
 
   const formatPrice = (price) => {
-    return `₱${parseFloat(price).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+    return `₱${parseFloat(price).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
   };
 
   const filteredProducts = products.filter((product) =>
-    (product.name.toLowerCase().includes(searchQuery.toLowerCase())) &&
-    (selectedCategory === "All" || product.category === selectedCategory)
+    product.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+    (selectedCategory === 'All' || product.category === selectedCategory)
   );
 
   const categories = Array.from(new Set(products.map(product => product.category)));
@@ -88,16 +88,22 @@ const ProductsListUser = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredProducts.map((product) => (
-              <tr key={product.id}>
-                <td className="prodList-td">{product.name}</td>
-                <td className="prodList-td">{product.stocks}</td>
-                <td className="prodList-td">{formatPrice(product.buyingPrice)}</td>
-                <td className="prodList-td">{formatPrice(product.sellingPrice)}</td>
-                <td className="prodList-td">{product.category}</td>
-                <td className="prodList-td"><img src={product.url} alt="Product" width="50" height="50" /></td>
+            {filteredProducts.length === 0 ? (
+              <tr>
+                <td colSpan="6" className="no-products">No products match your search.</td>
               </tr>
-            ))}
+            ) : (
+              filteredProducts.map((product) => (
+                <tr key={product.id}>
+                  <td className="prodList-td">{product.name}</td>
+                  <td className="prodList-td">{product.stocks}</td>
+                  <td className="prodList-td">{formatPrice(product.buyingPrice)}</td>
+                  <td className="prodList-td">{formatPrice(product.sellingPrice)}</td>
+                  <td className="prodList-td">{product.category}</td>
+                  <td className="prodList-td"><img src={product.url} alt="Product" width="50" height="50" /></td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>

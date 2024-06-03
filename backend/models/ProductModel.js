@@ -8,11 +8,11 @@ const Product = db.define('product', {
     sellingPrice: DataTypes.FLOAT,
     image: {
         type: DataTypes.STRING,
-        allowNull: true, // Allow null values for image
+        allowNull: true,
     },
     url: {
         type: DataTypes.STRING,
-        allowNull: true, // Allow null values for url
+        allowNull: true, 
     },
     category: DataTypes.STRING,
 }, {

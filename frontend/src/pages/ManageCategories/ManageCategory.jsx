@@ -12,6 +12,7 @@ const ManageCategory = () => {
   const [categoryName, setCategoryName] = useState("");
   const [message, setMessage] = useState(null);
   const [messageType, setMessageType] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     getCategories();
@@ -100,9 +101,26 @@ const ManageCategory = () => {
     }
   };
 
+  const sortedCategories = [...categories].sort((a, b) => a.category.localeCompare(b.category));
+
+  const filteredCategories = sortedCategories.filter(category =>
+    category.category.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const handleSearchInputChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
   return (
     <div className="categories-container">
       <h1>Manage Categories</h1>
+      <input
+        className="prodList-search-input"
+        type="text"
+        placeholder="Search categories..."
+        value={searchQuery}
+        onChange={handleSearchInputChange}
+      />
       <button className="add-category-btn" onClick={() => openModal()}>
         <ion-icon name="add-circle-outline"></ion-icon>New Category
       </button>
@@ -115,24 +133,30 @@ const ManageCategory = () => {
             </tr>
           </thead>
           <tbody>
-            {categories.map((category) => (
-              <tr key={category.id}>
-                <td>{category.category}</td>
-                <td>
-                  <button className="edit-button" onClick={() => openModal(category)}>
-                    <ion-icon name="create-outline" />Edit
-                  </button>
-                  <button className="delete-button" onClick={() => deleteCategory(category.id)}>
-                    <ion-icon name="trash-outline"></ion-icon>Delete
-                  </button>
-                </td>
+            {filteredCategories.length === 0 ? (
+              <tr>
+                <td colSpan="2" className="no-products">No categories match your search.</td>
               </tr>
-            ))}
+            ) : (
+              filteredCategories.map((category) => (
+                <tr key={category.id}>
+                  <td>{category.category}</td>
+                  <td>
+                    <button className="edit-button" onClick={() => openModal(category)}>
+                      <ion-icon name="create-outline" />Edit
+                    </button>
+                    <button className="delete-button" onClick={() => deleteCategory(category.id)}>
+                      <ion-icon name="trash-outline"></ion-icon>Delete
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
       {showScroll && (
-        <button className="scroll-to-top" onClick={scrollToTop}>
+        <button className="category-scroll-to-top" onClick={scrollToTop}>
           <ion-icon name="chevron-up-circle-outline"></ion-icon>Back to Top
         </button>
       )}

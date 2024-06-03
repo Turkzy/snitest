@@ -91,21 +91,27 @@ const DeleteProduct = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredProducts.map((product) => (
-              <tr key={product.id}>
-                <td className="DeletePanel-td">{product.name}</td>
-                <td className="DeletePanel-td">{product.stocks}</td>
-                <td className="DeletePanel-td">{formatPrice(product.buyingPrice)}</td>
-                <td className="DeletePanel-td">{formatPrice(product.sellingPrice)}</td>
-                <td className="DeletePanel-td">{product.category}</td>
-                <td className="DeletePanel-td"><img src={product.url} alt="Product" width="50" height="50" /></td>
-                <td className="DeletePanel-td">
-                  <button className="DeletePanel-delete-button" onClick={() => deleteProduct(product.id)}>
-                    <ion-icon name="trash-outline"></ion-icon>Delete
-                  </button>
-                </td>
+            {filteredProducts.length > 0 ? (
+              filteredProducts.map((product) => (
+                <tr key={product.id}>
+                  <td className="DeletePanel-td">{product.name}</td>
+                  <td className="DeletePanel-td">{product.stocks}</td>
+                  <td className="DeletePanel-td">{formatPrice(product.buyingPrice)}</td>
+                  <td className="DeletePanel-td">{formatPrice(product.sellingPrice)}</td>
+                  <td className="DeletePanel-td">{product.category}</td>
+                  <td className="DeletePanel-td"><img src={product.url} alt="Product" width="50" height="50" /></td>
+                  <td className="DeletePanel-td">
+                    <button className="DeletePanel-delete-button" onClick={() => deleteProduct(product.id)}>
+                      <ion-icon name="trash-outline"></ion-icon>Delete
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="7" className="no-products">No products match your search.</td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>

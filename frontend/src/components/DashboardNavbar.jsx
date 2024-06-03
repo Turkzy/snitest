@@ -50,19 +50,9 @@ const DashboardNavbar = () => {
               </NavLink>
             </div>
           </div>
-          <div className='dropdown'>
-            <button className='dropdown-toggle' onClick={() => toggleDropdown('reports')}>
-              <ion-icon name="documents-outline"></ion-icon>Reports
-            </button>
-            <div className={`dropdown-menu ${dropdownOpen.reports ? 'show' : ''}`}>
-              <NavLink to="/Dashboard/Sales" activeClassName="active-link">
-                <ion-icon name="document-attach-outline"></ion-icon>Sales
-              </NavLink>
-              <NavLink to="/Dashboard/SalesReport" activeClassName="active-link">
-                <ion-icon name="document-text-outline"></ion-icon>Sales Report
-              </NavLink>
-            </div>
-          </div>
+          <NavLink to="/Dashboard/SalesReport" activeClassName="active-link">
+            <ion-icon name="copy-outline"></ion-icon>Sales Report
+          </NavLink>
           <NavLink to="/Dashboard/SystemManagement" activeClassName="active-link">
             <ion-icon name="settings-outline"></ion-icon>System Management
           </NavLink>

@@ -89,16 +89,22 @@ const ProductsList = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredProducts.map((product) => (
-              <tr key={product.id}>
-                <td className="prodList-td">{product.name}</td>
-                <td className="prodList-td">{product.stocks}</td>
-                <td className="prodList-td">{formatPrice(product.buyingPrice)}</td>
-                <td className="prodList-td">{formatPrice(product.sellingPrice)}</td>
-                <td className="prodList-td">{product.category}</td>
-                <td className="prodList-td"><img src={product.url} alt="Product" width="50" height="50" /></td>
+            {filteredProducts.length === 0 ? (
+              <tr>
+                <td colSpan="6" className="no-products">No products match your search.</td>
               </tr>
-            ))}
+            ) : (
+              filteredProducts.map((product) => (
+                <tr key={product.id}>
+                  <td className="prodList-td">{product.name}</td>
+                  <td className="prodList-td">{product.stocks}</td>
+                  <td className="prodList-td">{formatPrice(product.buyingPrice)}</td>
+                  <td className="prodList-td">{formatPrice(product.sellingPrice)}</td>
+                  <td className="prodList-td">{product.category}</td>
+                  <td className="prodList-td"><img src={product.url} alt="Product" width="50" height="50" /></td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>

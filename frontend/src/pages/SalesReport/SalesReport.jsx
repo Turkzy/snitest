@@ -148,7 +148,7 @@ const SalesReport = () => {
           {filteredTransactions.map((transactionGroup, index) => (
             <tr key={index}>
               <td className="date-cell">{new Date(transactionGroup.dateTime).toLocaleDateString()}</td>
-              <td className="total-amount-cell">{transactionGroup.totalAmount.toFixed(2)}</td>
+              <td className="total-amount-cell">₱{transactionGroup.totalAmount.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
               <td className="action-cell">
                 <button className='view-details' onClick={() => openModal(transactionGroup.transactions)}>
                 <ion-icon name="eye-outline"></ion-icon>View Details</button>
@@ -178,8 +178,8 @@ const SalesReport = () => {
               <tr key={index}>
                 <td className='Sales-Modal-td'>{transaction.productName}</td>
                 <td className='Sales-Modal-td'>{transaction.quantity}</td>
-                <td className='Sales-Modal-td'>{transaction.price.toFixed(2)}</td>
-                <td className='Sales-Modal-td'>{transaction.subTotal.toFixed(2)}</td>
+                <td className='Sales-Modal-td'>₱{transaction.price.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                <td className='Sales-Modal-td'>₱{transaction.subTotal.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
               </tr>
             ))}
           </tbody>

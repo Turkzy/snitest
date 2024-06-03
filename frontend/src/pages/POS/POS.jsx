@@ -1,5 +1,3 @@
-// POS.js
-
 import React, { useState, useEffect } from 'react';
 import './POS.css';
 
@@ -7,9 +5,14 @@ const POS = () => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
+  const [paymentAmount, setPaymentAmount] = useState(0);
+  const [changeAmount, setChangeAmount] = useState(0);
   const [productName, setProductName] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [paymentModalIsOpen, setPaymentModalIsOpen] = useState(false);
+  const [message, setMessage] = useState(null);
+  const [messageType, setMessageType] = useState('');
 
   useEffect(() => {
     fetch('http://localhost:5000/products')
@@ -52,6 +55,19 @@ const POS = () => {
   };
 
   const handleCheckout = () => {
+    if (totalAmount <= 0) {
+      alert('Cart is empty. Please add items to proceed with the checkout.');
+      return;
+    }
+    setPaymentModalIsOpen(true);
+  };
+
+  const handlePayment = () => {
+    if (paymentAmount < totalAmount) {
+      alert('Insufficient payment amount');
+      return;
+    }
+  
     fetch('http://localhost:5000/processTransaction', {
       method: 'POST',
       headers: {
@@ -61,9 +77,15 @@ const POS = () => {
     })
     .then(response => response.json())
     .then(data => {
-      alert(`Transaction successful! Total Amount: ${formatCurrency(data.totalAmount)}`);
+      const change = paymentAmount - data.totalAmount;
+      setChangeAmount(change);
       setCart([]);
       setTotalAmount(0);
+      setPaymentAmount(0);
+      setMessage('Transaction successful!');
+      setMessageType('success');
+      alert(`Transaction successful! Total Amount: ${formatCurrency(data.totalAmount)}, Change: ${formatCurrency(change)}`);
+      setPaymentModalIsOpen(false);
     })
     .catch(error => console.error('Error:', error));
   };
@@ -73,6 +95,23 @@ const POS = () => {
     const product = products.find(prod => prod.name.toLowerCase() === e.target.value.toLowerCase());
     setSelectedProduct(product || null);
   };
+
+  const handlePaymentInputChange = (e) => {
+    const payment = parseFloat(e.target.value);
+    setPaymentAmount(payment);
+    const change = payment - totalAmount;
+    setChangeAmount(change);
+  };
+
+  useEffect(() => {
+    if (message) {
+      const timer = setTimeout(() => {
+        setMessage(null);
+        setMessageType('');
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
 
   return (
     <div className="pos-container">
@@ -123,6 +162,30 @@ const POS = () => {
         <h2>Total Amount: {formatCurrency(totalAmount)}</h2>
         <button onClick={handleCheckout}>Checkout</button>
       </div>
+      {paymentModalIsOpen && (
+        <div className="payment-modal">
+          <div className="payment-content">
+            <span className="close" onClick={() => setPaymentModalIsOpen(false)}>&times;</span>
+            <h2>Total Amount: {formatCurrency(totalAmount)}</h2>
+            <input
+              type="number"
+              placeholder="Enter payment amount"
+              value={paymentAmount}
+              onChange={handlePaymentInputChange}
+              min={totalAmount}
+            />
+            <h2>Change Due: {formatCurrency(changeAmount)}</h2>
+            <button className='payment-modal-pay' onClick={handlePayment}>Pay Now</button>
+            <button className='payment-modal-cancel' onClick={() => setPaymentModalIsOpen(false)}>Cancel</button>
+          </div>
+        </div>
+      )}
+      {message && (
+        <div className={`POS-message-container ${messageType}`}>
+          {message}
+          <button className="close-message-btn" onClick={() => setMessage(null)}>X</button>
+        </div>
+      )}
     </div>
   );
 };

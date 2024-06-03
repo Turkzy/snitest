@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import Modal from 'react-modal';
-import AddProductPanel from './AddProductPanel'; // Import the AddProductPanel component
+import AddProductPanel from './AddProductPanel';
 import "./AddProduct.css";
 
-// Override the default styles for the modal
 const customModalStyles = {
   overlay: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)' // Semi-transparent overlay
+    backgroundColor: 'rgba(0, 0, 0, 0.5)' 
   },
   content: {
     position: 'absolute',
@@ -70,8 +69,8 @@ const AddProduct = () => {
   const handleAddProductSuccess = () => {
     setMessage('Product successfully added!');
     setMessageType('success');
-    closeModal(); // Close the modal after success
-    getProducts(); // Refresh the product list
+    closeModal(); 
+    getProducts(); 
   };
 
   useEffect(() => {
