@@ -145,15 +145,17 @@ const EditProduct = () => {
                     <div className='editProductPanel-field'>
                         <label className='edit-label'>Category</label>
                         <div className='edit-control'>
-                            <select
-                                className='edit-input'
-                                value={category}
-                                onChange={(e) => setCategory(e.target.value)}
-                                required
+                        <select
+                            className='edit-input'
+                            value={category}
+                            onChange={(e) => setCategory(e.target.value)}
+                            required
                             >
-                                <option value='Default' disabled>Select Category</option>
-                                {categories.map(category => (
-                                    <option key={category.id} value={category.category}>{category.category}</option>
+                            <option value='Default' disabled>Select Category</option>
+                            {categories
+                                .sort((a, b) => a.category.localeCompare(b.category)) // Sort the categories alphabetically
+                                .map(category => (
+                                <option key={category.id} value={category.category}>{category.category}</option>
                                 ))}
                             </select>
                         </div>
