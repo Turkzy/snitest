@@ -24,6 +24,9 @@ function SidebarUser() {
 
   return (
     <div className="sidebar">
+      <div className='identity-admin'>
+        <h2 className='identity-admin-title'><ion-icon name="person-circle-outline"></ion-icon>USER</h2>
+      </div>
       <ul>
         <li>
           <NavLink to="/UserDashboard" className={({ isActive }) => isActive ? 'active' : ''}>

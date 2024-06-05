@@ -170,8 +170,8 @@ const ManageCategory = () => {
           className='categories-edit-field'
         />
         <div className="modal-buttons">
-          <button className="save-button" onClick={saveCategory}>{isEditing ? "Save changes" : "Add"}</button>
-          <button className="cancel-button" onClick={closeModal}>Cancel</button>
+          <button className="save-button" onClick={saveCategory}><ion-icon name="add-circle-outline"></ion-icon>{isEditing ? "Save changes" : "Add"}</button>
+          <button className="cancel-button" onClick={closeModal}><ion-icon name="close-outline"></ion-icon>Cancel</button>
         </div>
       </Modal>
       {message && (

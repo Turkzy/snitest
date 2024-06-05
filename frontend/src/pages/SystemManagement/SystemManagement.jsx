@@ -141,11 +141,11 @@ const SystemManagement = () => {
         <h2>{isEditing ? "Edit Admin" : "Add Admin"}</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="username">Username:</label>
+            <label htmlFor="username">Username: *</label>
             <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)} required />
           </div>
           <div className="form-group">
-            <label htmlFor="password">Password:</label>
+            <label htmlFor="password">Password: *</label>
             <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
           </div>
           <div className="form-group">
@@ -156,8 +156,8 @@ const SystemManagement = () => {
             </select>
           </div>
           <div className="modal-buttons">
-            <button type="submit" className="save-button">{isEditing ? "Save" : "Add"}</button>
-            <button type="button" className="cancel-button" onClick={closeModal}>Cancel</button>
+            <button type="submit" className="save-button"><ion-icon name="add-circle-outline"></ion-icon>{isEditing ? "Save" : "Add"}</button>
+            <button type="button" className="cancel-button" onClick={closeModal}><ion-icon name="close-outline"></ion-icon>Cancel</button>
           </div>
         </form>
       </Modal>

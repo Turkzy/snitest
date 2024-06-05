@@ -30,6 +30,9 @@ function Sidebar() {
 
   return (
     <div className="sidebar">
+      <div className='identity-admin'>
+        <h2 className='identity-admin-title'><ion-icon name="person-circle-outline"></ion-icon>ADMIN</h2>
+      </div>
       <ul>
         <li>
           <NavLink to="/Dashboard" activeClassName="active">
