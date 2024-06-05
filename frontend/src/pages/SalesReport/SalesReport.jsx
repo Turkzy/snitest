@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Modal from 'react-modal'; // Import React Modal
 import './SalesReport.css';
-import '../../img/logo.png';
+import logo from '../../img/logo.png'; // Import company logo
 
 // Custom modal styles
 const customModalStyles = {
@@ -10,11 +10,11 @@ const customModalStyles = {
   },
   content: {
     position: 'absolute',
-    top: '50%',
+    top: '55%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: '60%',
-    height: 'auto',
+    height: '80%',
     borderRadius: '10px',
     padding: '20px'
   }
@@ -28,6 +28,7 @@ const SalesReport = () => {
   const [selectedYear, setSelectedYear] = useState('');
   const [modalIsOpen, setModalIsOpen] = useState(false); // State to manage modal visibility
   const [selectedTransactions, setSelectedTransactions] = useState([]); // State to store selected transaction details
+  const printRef = useRef(); // Reference to the print content
 
   useEffect(() => {
     fetch('http://localhost:5000/transactions')
@@ -39,30 +40,34 @@ const SalesReport = () => {
     filterTransactions(filter, selectedMonth, selectedYear);
   }, [filter, selectedMonth, selectedYear, transactions]);
 
-  
   const filterTransactions = (filter, month, year) => {
     let filtered = [...transactions];
-  
+
+    const now = new Date();
+    const startOfWeek = new Date(now);
+    startOfWeek.setDate(now.getDate() - now.getDay());
+    startOfWeek.setHours(0, 0, 0, 0);
+
+    const endOfWeek = new Date(startOfWeek);
+    endOfWeek.setDate(startOfWeek.getDate() + 6);
+    endOfWeek.setHours(23, 59, 59, 999);
+
     switch (filter) {
       case 'today':
         filtered = transactions.filter(transaction => {
           const transactionDate = new Date(transaction.createdAt);
-          const now = new Date();
           return transactionDate.toDateString() === now.toDateString();
         });
         break;
       case 'weekly':
         filtered = transactions.filter(transaction => {
           const transactionDate = new Date(transaction.createdAt);
-          const oneWeekAgo = new Date();
-          oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-          return transactionDate >= oneWeekAgo;
+          return transactionDate >= startOfWeek && transactionDate <= endOfWeek;
         });
         break;
       case 'monthly':
-        // Filter transactions for the current month
-        const currentMonth = new Date().getMonth() + 1;
-        const currentYear = new Date().getFullYear();
+        const currentMonth = now.getMonth() + 1;
+        const currentYear = now.getFullYear();
         filtered = transactions.filter(transaction => {
           const transactionDate = new Date(transaction.createdAt);
           return (
@@ -71,20 +76,16 @@ const SalesReport = () => {
           );
         });
         break;
-      case 'select':
-        // Filter transactions based on selected month and year
+      case 'annually':
         filtered = transactions.filter(transaction => {
           const transactionDate = new Date(transaction.createdAt);
-          return (
-            transactionDate.getMonth() + 1 === parseInt(month) &&
-            transactionDate.getFullYear() === parseInt(year)
-          );
+          return transactionDate.getFullYear() === parseInt(year);
         });
         break;
       default:
         break;
     }
-  
+
     // Group transactions by their date and time
     const groupedTransactions = {};
     filtered.forEach(transaction => {
@@ -94,17 +95,16 @@ const SalesReport = () => {
       }
       groupedTransactions[dateTime].push(transaction);
     });
-  
+
     // Convert object back to array
     filtered = Object.entries(groupedTransactions).map(([dateTime, transactions]) => ({
       dateTime,
       transactions,
       totalAmount: transactions.reduce((total, transaction) => total + parseFloat(transaction.subTotal), 0)
     }));
-  
+
     setFilteredTransactions(filtered);
   };
-  
 
   const openModal = (transactions) => {
     setSelectedTransactions(transactions); // Set the selected transactions
@@ -115,23 +115,38 @@ const SalesReport = () => {
     setModalIsOpen(false); // Close the modal
   };
 
+  const printModalContent = () => {
+    const printContent = printRef.current;
+    const printWindow = window.open('', '', 'width=800,height=600');
+    printWindow.document.write('<html><head><title>Print</title>');
+    printWindow.document.write('<style>');
+    printWindow.document.write('table { width: 100%; border-collapse: collapse; }');
+    printWindow.document.write('th, td { border: 1px solid black; padding: 8px; text-align: left; }');
+    printWindow.document.write('.print-header { display: flex; justify-content: space-between; align-items: center; }');
+    printWindow.document.write('.print-header img { height: 50px; }');
+    printWindow.document.write('.print-header .date { text-align: right; }');
+    printWindow.document.write('</style>');
+    printWindow.document.write('</head><body>');
+    printWindow.document.write(printContent.innerHTML);
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.print();
+  };
+
+  const calculateTotalAmount = () => {
+    return selectedTransactions.reduce((total, transaction) => total + parseFloat(transaction.subTotal), 0).toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  };
+
   return (
     <div className="sales-report-container">
       <h1>Sales Report</h1>
       <div className="filter-options">
-        <button onClick={() => setFilter('today')}>Today</button>
-        <button onClick={() => setFilter('weekly')}>This Week</button>
-        <button onClick={() => setFilter('monthly')}>This Month</button>
-        <button onClick={() => setFilter('select')}>Select</button>
-        {filter === 'select' && (
+        <button onClick={() => setFilter('today')}><ion-icon name="calendar-outline"></ion-icon>Today</button>
+        <button onClick={() => setFilter('weekly')}><ion-icon name="calendar-outline"></ion-icon>This Week</button>
+        <button onClick={() => setFilter('monthly')}><ion-icon name="calendar-outline"></ion-icon>This Month</button>
+        <button onClick={() => setFilter('annually')}><ion-icon name="calendar-outline"></ion-icon>Annually</button>
+        {filter === 'annually' && (
           <div>
-            <select onChange={(e) => setSelectedMonth(e.target.value)}>
-              <option value="">Select Month</option>
-              {Array.from({ length: 12 }, (_, index) => {
-                const month = index + 1;
-                return <option key={month} value={month}>{new Date(2022, month - 1).toLocaleString('default', { month: 'long' })}</option>;
-              })}
-            </select>
             <input type="number" placeholder="Year" onChange={(e) => setSelectedYear(e.target.value)} />
           </div>
         )}
@@ -151,39 +166,56 @@ const SalesReport = () => {
               <td className="total-amount-cell">₱{transactionGroup.totalAmount.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
               <td className="action-cell">
                 <button className='view-details' onClick={() => openModal(transactionGroup.transactions)}>
-                <ion-icon name="eye-outline"></ion-icon>View Details</button>
+                  <ion-icon name="eye-outline"></ion-icon>View Details
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      
+
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-        style={customModalStyles} 
+        style={customModalStyles}
         ariaHideApp={false}>
-        <h2 className='Sales-Modal-title'>Transaction Details</h2>
-        <table className='Sales-Modal-table'>
-          <thead>
-            <tr>
-              <th className='Sales-Modal-th'>Product Name</th>
-              <th className='Sales-Modal-th'>Quantity</th>
-              <th className='Sales-Modal-th'>Price</th>
-              <th className='Sales-Modal-th'>Subtotal</th>
+        <div ref={printRef}>
+          <div className="print-header">
+            <img className='logo-modal' src={logo} alt="Company Logo" />
+            <div className="date">{new Date().toLocaleDateString()}</div>
+          </div>
+          <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+            <h2 className='Sales-Modal-title'>R. Laroya Construction Supply</h2>
+            <p>1320 Benavidez St., Brgy. 263 Zone 24, 1013 Tondo Manila</p>
+          </div>
+          <table className='Sales-Modal-table'>
+            <thead>
+              <tr>
+                <th className='Sales-Modal-th'>Product Name</th>
+                <th className='Sales-Modal-th'>Quantity</th>
+                <th className='Sales-Modal-th'>Price</th>
+                <th className='Sales-Modal-th'>Subtotal</th>
               </tr>
-          </thead>
-          <tbody>
-            {selectedTransactions.map((transaction, index) => (
-              <tr key={index}>
-                <td className='Sales-Modal-td'>{transaction.productName}</td>
-                <td className='Sales-Modal-td'>{transaction.quantity}</td>
-                <td className='Sales-Modal-td'>₱{transaction.price.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                <td className='Sales-Modal-td'>₱{transaction.subTotal.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+            </thead>
+            <tbody>
+              {selectedTransactions.map((transaction, index) => (
+                <tr key={index}>
+                  <td className='Sales-Modal-td'>{transaction.productName}</td>
+                  <td className='Sales-Modal-td'>{transaction.quantity}</td>
+                  <td className='Sales-Modal-td'>₱{transaction.price.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                  <td className='Sales-Modal-td'>₱{transaction.subTotal.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                </tr>
+              ))}
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colSpan="3" style={{ textAlign: 'right' }}><strong>Total Amount:</strong></td>
+                <td className='Sales-Modal-td'>₱{calculateTotalAmount()}</td>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </tfoot>
+          </table>
+        </div>
+        <button className='Sales-Modal-Print' onClick={printModalContent}>Print</button>
         <button className='Sales-Modal-Cancel' onClick={closeModal}>Close</button>
       </Modal>
     </div>
@@ -191,4 +223,3 @@ const SalesReport = () => {
 };
 
 export default SalesReport;
-

@@ -18,7 +18,7 @@ const AdminDashboard = () => {
       const products = response.data;
       setTotalProducts(products.length);
 
-      const lowStock = products.filter(product => product.stocks < 2);
+      const lowStock = products.filter(product => product.stocks <= 5);
       setLowStockCount(lowStock.length);
       setLowStockProducts(lowStock);
 

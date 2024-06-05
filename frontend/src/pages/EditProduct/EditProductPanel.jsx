@@ -91,7 +91,7 @@ const EditProduct = () => {
             <div className='edit-product-form-container'>
                 <form onSubmit={updateProduct}>
                     <div className='editProductPanel-field'>
-                        <label className='edit-label'>Product Name</label>
+                        <label className='edit-label'>Product Name *</label>
                         <div className='edit-control'>
                             <input
                                 type='text'
@@ -104,7 +104,7 @@ const EditProduct = () => {
                         </div>
                     </div>
                     <div className='editProductPanel-field'>
-                        <label className='edit-label'>Stocks</label>
+                        <label className='edit-label'>Stocks *</label>
                         <div className='edit-control'>
                             <input
                                 type='number'
@@ -117,7 +117,7 @@ const EditProduct = () => {
                         </div>
                     </div>
                     <div className='editProductPanel-field'>
-                        <label className='edit-label'>Buying Price</label>
+                        <label className='edit-label'>Buying Price *</label>
                         <div className='edit-control'>
                             <input
                                 type='number'
@@ -130,7 +130,7 @@ const EditProduct = () => {
                         </div>
                     </div>
                     <div className='editProductPanel-field'>
-                        <label className='edit-label'>Selling Price</label>
+                        <label className='edit-label'>Selling Price *</label>
                         <div className='edit-control'>
                             <input
                                 type='number'
@@ -143,7 +143,7 @@ const EditProduct = () => {
                         </div>
                     </div>
                     <div className='editProductPanel-field'>
-                        <label className='edit-label'>Category</label>
+                        <label className='edit-label'>Category *</label>
                         <div className='edit-control'>
                         <select
                             className='edit-input'
@@ -151,7 +151,7 @@ const EditProduct = () => {
                             onChange={(e) => setCategory(e.target.value)}
                             required
                             >
-                            <option value='Default' disabled>Select Category</option>
+                            <option value='Default' disabled>Select Category *</option>
                             {categories
                                 .sort((a, b) => a.category.localeCompare(b.category)) // Sort the categories alphabetically
                                 .map(category => (
@@ -161,11 +161,12 @@ const EditProduct = () => {
                         </div>
                     </div>
                     <div className='editProductPanel-field'>
-                        <label className='edit-label'>Image</label>
+                        <label className='edit-label'>Image *</label>
                         <div className='edit-control'>
                             <input
                                 type='file'
                                 className='edit-input'
+                                accept='.jpg, .jpeg, .png'
                                 onChange={loadImage}
                             />
                         </div>
@@ -178,8 +179,8 @@ const EditProduct = () => {
                     )}
 
                     <div className='editProductPanel-field-button-container'>
-                        <button className='editProductPanel-button-success' type='submit'>Update</button>
-                        <button className='editProductPanel-button-cancel' type='button' onClick={handleCancel}>Cancel</button>
+                        <button className='editProductPanel-button-success' type='submit'><ion-icon name="create-outline"></ion-icon>Update</button>
+                        <button className='editProductPanel-button-cancel' type='button' onClick={handleCancel}><ion-icon name="close-outline"></ion-icon>Cancel</button>
                     </div>
                 </form>
             </div>

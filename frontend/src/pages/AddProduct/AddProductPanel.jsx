@@ -15,6 +15,8 @@ const AddProductPanel = ({ onSuccess, closeModal }) => {
   const [categories, setCategories] = useState([]);
   const [preview, setPreview] = useState(null);
   const [file, setFile] = useState("");
+  const [errorMessage, setErrorMessage] = useState(""); // State for error message
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchCategories();
@@ -46,13 +48,19 @@ const AddProductPanel = ({ onSuccess, closeModal }) => {
   const handleImageChange = (e) => {
     const image = e.target.files[0];
     if (image) {
-      setFile(image);
-      setPreview(URL.createObjectURL(image));
+      const fileType = image.type.split("/")[1]; 
+      if (fileType !== "jpg" && fileType !== "jpeg" && fileType !== "png") {
+        setErrorMessage("Invalid file type. Please select a jpg, jpeg, or png file.");
+      } else {
+        setErrorMessage("");
+        setPreview(URL.createObjectURL(image));
+      }
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (errorMessage) return;
     const formData = new FormData();
     formData.append("file", file);
     formData.append("name", newProduct.name);
@@ -74,11 +82,11 @@ const AddProductPanel = ({ onSuccess, closeModal }) => {
         buyingPrice: 0,
         sellingPrice: 0,
         image: '',
-        category: 'Default' // Reset category after submission
+        category: 'Default'
       });
       setPreview(null);
-      onSuccess(); // Trigger success message and product list update
-      closeModal(); // Close the modal after successful submission
+      onSuccess(); 
+      closeModal();
     } catch (error) {
       console.error(error);
     }
@@ -87,11 +95,12 @@ const AddProductPanel = ({ onSuccess, closeModal }) => {
   return (
     <div className='addProductPanel-container'>
       <h1>Add Product</h1>
+      {errorMessage && <div className="error-message">{errorMessage}</div>} {/* Display error message */}
       <div className='addProductPanel-form-container'>
         <div className='addProductPanel-form'>
           <form onSubmit={handleSubmit}>
             <div className='addProductPanel-field'>
-              <label className='addProductPanel-label'>Product Name</label>
+              <label className='addProductPanel-label' htmlFor='name'>Product Name *</label>
               <div className='addProductPanel-control'>
                 <input
                   type='text'
@@ -99,13 +108,14 @@ const AddProductPanel = ({ onSuccess, closeModal }) => {
                   value={newProduct.name}
                   onChange={handleChange}
                   name='name'
+                  id='name'
                   placeholder='Product Name'
                   required
                 />
               </div>
             </div>
             <div className='addProductPanel-field'>
-              <label className='addProductPanel-label'>Stocks</label>
+              <label className='addProductPanel-label' htmlFor='stocks'>Stocks *</label>
               <div className='addProductPanel-control'>
                 <input
                   type='number'
@@ -113,13 +123,14 @@ const AddProductPanel = ({ onSuccess, closeModal }) => {
                   value={newProduct.stocks}
                   onChange={handleChange}
                   name='stocks'
+                  id='stocks'
                   placeholder='Stocks'
                   required
                 />
               </div>
             </div>
             <div className='addProductPanel-field'>
-              <label className='addProductPanel-label'>Buying Price</label>
+              <label className='addProductPanel-label' htmlFor='buyingPrice'>Buying Price *</label>
               <div className='addProductPanel-control'>
                 <input
                   type='number'
@@ -127,13 +138,14 @@ const AddProductPanel = ({ onSuccess, closeModal }) => {
                   value={newProduct.buyingPrice}
                   onChange={handleChange}
                   name='buyingPrice'
+                  id='buyingPrice'
                   placeholder='Buying Price'
                   required
                 />
               </div>
             </div>
             <div className='addProductPanel-field'>
-              <label className='addProductPanel-label'>Selling Price</label>
+              <label className='addProductPanel-label' htmlFor='sellingPrice'>Selling Price *</label>
               <div className='addProductPanel-control'>
                 <input
                   type='number'
@@ -141,56 +153,60 @@ const AddProductPanel = ({ onSuccess, closeModal }) => {
                   value={newProduct.sellingPrice}
                   onChange={handleChange}
                   name='sellingPrice'
+                  id='sellingPrice'
                   placeholder='Selling Price'
                   required
                 />
               </div>
             </div>
             <div className='addProductPanel-field'>
-              <label className='addProductPanel-label'>Category</label>
+                           <label className='addProductPanel-label' htmlFor='category'>Category *</label>
               <div className='addProductPanel-control'>
-              <select
-                className='addProductPanel-input'
-                value={newProduct.category}
-                onChange={handleChange}
-                name='category'
-                required
-              >
-                <option value='Default' disabled>Select Category</option>
-                {categories
-                  .sort((a, b) => a.category.localeCompare(b.category)) // Sort the categories alphabetically
-                  .map(category => (
-                    <option key={category.id} value={category.category}>{category.category}</option>
-                  ))}
-              </select>
+                <select
+                  className='addProductPanel-input'
+                  value={newProduct.category}
+                  onChange={handleChange}
+                  name='category'
+                  id='category'
+                  required
+                >
+                  <option value='Default' disabled>Select Category</option>
+                  {categories
+                    .sort((a, b) => a.category.localeCompare(b.category)) // Sort the categories alphabetically
+                    .map(category => (
+                      <option key={category.id} value={category.category}>{category.category}</option>
+                    ))}
+                </select>
               </div>
             </div>
             <div className='addProductPanel-field'>
-              <label className='addProductPanel-label'>Image</label>
-              <div className='addProductPanel-control'>
-                <input
-                  type='file'
-                  className='addProductPanel-input'
-                  onChange={handleImageChange}
-                  name='image'
-                  required
-                />
-              </div>
-            </div>
-            <div className='addProductPanel-field-button-container'>
-              <button className='addProductPanel-button-success' type='submit'>Add Product</button>
-              <button className='addProductPanel-button-cancel' type='button' onClick={closeModal}>Cancel</button>
-            </div>
-          </form>
-        </div>
-        {preview && (
-          <div className='addProductPanel-image-preview'>
-            <img src={preview} alt='Product Preview' />
+              <label className='addProductPanel-label' htmlFor='image'>Image *</label>
+          <div className='addProductPanel-control'>
+          <input
+          type='file'
+          className='addProductPanel-input'
+          onChange={handleImageChange}
+          name='image'
+          id='image'
+          accept=".jpg, .jpeg, .png" // Accept only specified file types
+          required
+          />
           </div>
-        )}
-      </div>
-    </div>
-  );
-};
+          </div>
+          <div className='addProductPanel-field-button-container'>
+          <button className='addProductPanel-button-success' type='submit'><ion-icon name="add-circle-outline"></ion-icon>Add Product</button>
+          <button className='addProductPanel-button-cancel' type='button' onClick={closeModal}><ion-icon name="close-outline"></ion-icon>Cancel</button>
+          </div>
+          </form>
+          </div>
+          {preview && (
+          <div className='addProductPanel-image-preview'>
+          <img src={preview} alt='Product Preview' />
+          </div>
+          )}
+          </div>
+          </div>
+          );
+          };
 
 export default AddProductPanel;
