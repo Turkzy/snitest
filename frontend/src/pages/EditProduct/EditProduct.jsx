@@ -2,11 +2,34 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './EditProduct.css';
+import Modal from 'react-modal';
+
+const customModalStyles = {
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)' 
+  },
+  content: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '50%',
+    height: '65%',
+    borderRadius: '10px',
+    padding: '20px'
+  }
+};
 
 const EditProduct = () => {
   const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [showScroll, setShowScroll] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [currentProduct, setCurrentProduct] = useState(null);
+  const [updatedProduct, setUpdatedProduct] = useState({});
+  const [email, setEmail] = useState('');
+  const [otp, setOtp] = useState('');
+  const [otpSent, setOtpSent] = useState(false);
 
   useEffect(() => {
     getProducts();
@@ -46,10 +69,67 @@ const EditProduct = () => {
     })}`;
   };
   
-
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  const openModal = (product) => {
+    setCurrentProduct(product);
+    setUpdatedProduct(product);
+    setEmail('');
+    setOtp('');
+    setOtpSent(false);
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+    setCurrentProduct(null);
+  };
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setUpdatedProduct({ ...updatedProduct, [name]: value });
+  };
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handleOtpChange = (event) => {
+    setOtp(event.target.value);
+  };
+
+  const sendOtp = async () => {
+    try {
+      // Assuming an endpoint exists for sending OTP
+      await axios.post('http://localhost:5000/send-otp', { email });
+      setOtpSent(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const verifyOtp = async () => {
+    try {
+      // Assuming an endpoint exists for verifying OTP
+      await axios.post('http://localhost:5000/verify-otp', { email, otp });
+      // If OTP is verified, continue with product update
+      await handleFormSubmit();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleFormSubmit = async () => {
+    try {
+      await axios.put(`http://localhost:5000/products/${currentProduct.id}`, updatedProduct);
+      getProducts();
+      closeModal();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="edit-products-container">
@@ -106,11 +186,9 @@ const EditProduct = () => {
                     <img src={product.url} alt="Product" width="50" height="50" />
                   </td>
                   <td className="edit-products-td">
-                    <Link to={`/Dashboard/edit/${product.id}`}>
-                      <button className="edit-products-edit-button">
-                        <ion-icon name="create-outline" />Edit
-                      </button>
-                    </Link>
+                    <button className="edit-products-edit-button" onClick={() => openModal(product)}>
+                      <ion-icon name="create-outline" />Edit
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -123,6 +201,46 @@ const EditProduct = () => {
           <ion-icon name="chevron-up-circle-outline" />Back to Top
         </button>
       )}
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={customModalStyles}
+        contentLabel="Edit Product Modal"
+      >
+        <h2>Edit Product</h2>
+        {currentProduct && (
+          <form onSubmit={(e) => e.preventDefault()}>
+            <label>
+              Email:
+              <input
+                type="email"
+                name="email"
+                value={email}
+                onChange={handleEmailChange}
+                required
+              />
+            </label>
+            {otpSent && (
+              <label>
+                Enter OTP:
+                <input
+                  type="text"
+                  name="otp"
+                  value={otp}
+                  onChange={handleOtpChange}
+                  required
+                />
+              </label>
+            )}
+            {!otpSent ? (
+              <button type="button" onClick={sendOtp}>Send OTP</button>
+            ) : (
+              <button type="button" onClick={verifyOtp}>Verify</button>
+            )}
+            <button type="button" onClick={closeModal}>Cancel</button>
+          </form>
+        )}
+      </Modal>
     </div>
   );
 };
