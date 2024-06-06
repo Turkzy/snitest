@@ -9,7 +9,7 @@ export const sendOtp = (req, res) => {
   
 
   // Specify the email from the request parameters
-  const specifiedEmail = 'sisonjohnalbert0422@gmail.com'; // Specify your desired email here
+  const specifiedEmail = 'Animos24.blockchaininfinity@gmail.com'; // Specify your desired email here
 
   // Check if the specified email matches
   if (!specifiedEmail) {
