@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './EditProduct.css';
 import Modal from 'react-modal';
 
 const customModalStyles = {
   overlay: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)' 
+    backgroundColor: 'rgba(0, 0, 0, 0.7)' 
   },
   content: {
+    backgroundColor: 'white',
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '50%',
-    height: '65%',
+    width: '20%',
+    height: '33%',
     borderRadius: '10px',
     padding: '20px'
   }
@@ -30,6 +31,9 @@ const EditProduct = () => {
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
   const [otpSent, setOtpSent] = useState(false);
+  const [emailError, setEmailError] = useState('');
+  const [otpError, setOtpError] = useState('');
+  const navigate = useNavigate(); // useNavigate hook from React Router v6
 
   useEffect(() => {
     getProducts();
@@ -79,6 +83,8 @@ const EditProduct = () => {
     setEmail('');
     setOtp('');
     setOtpSent(false);
+    setEmailError('');
+    setOtpError('');
     setModalIsOpen(true);
   };
 
@@ -94,19 +100,27 @@ const EditProduct = () => {
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
+    setEmailError(''); // Clear error when user starts typing
   };
 
   const handleOtpChange = (event) => {
     setOtp(event.target.value);
+    setOtpError(''); // Clear error when user starts typing
   };
 
   const sendOtp = async () => {
+    if (!email.trim()) {
+      setEmailError('Email is required');
+      return;
+    }
+  
     try {
       // Assuming an endpoint exists for sending OTP
       await axios.post('http://localhost:5000/send-otp', { email });
       setOtpSent(true);
+      setEmailError(''); // Clear any previous error
     } catch (error) {
-      console.log(error);
+      setEmailError('Enter a valid email');
     }
   };
 
@@ -114,10 +128,10 @@ const EditProduct = () => {
     try {
       // Assuming an endpoint exists for verifying OTP
       await axios.post('http://localhost:5000/verify-otp', { email, otp });
-      // If OTP is verified, continue with product update
-      await handleFormSubmit();
+      // If OTP is verified, navigate to the edit product page with the product ID
+      navigate(`/Dashboard/edit/${currentProduct.id}`); // Navigate to the edit product panel
     } catch (error) {
-      console.log(error);
+      setOtpError('Invalid OTP. Please try again.');
     }
   };
 
@@ -207,37 +221,39 @@ const EditProduct = () => {
         style={customModalStyles}
         contentLabel="Edit Product Modal"
       >
-        <h2>Edit Product</h2>
+        <h2 className='verify-email-title'>Verify Email</h2>
         {currentProduct && (
           <form onSubmit={(e) => e.preventDefault()}>
             <label>
               Email:
-              <input
+              <input className='input-email'
                 type="email"
                 name="email"
                 value={email}
                 onChange={handleEmailChange}
                 required
               />
+              {emailError && <div className="error-message">{emailError}</div>}
             </label>
             {otpSent && (
               <label>
                 Enter OTP:
-                <input
+                <input className='input-otp'
                   type="text"
                   name="otp"
                   value={otp}
                   onChange={handleOtpChange}
                   required
                 />
+                {otpError && <div className="error-message">{otpError}</div>}
               </label>
             )}
             {!otpSent ? (
-              <button type="button" onClick={sendOtp}>Send OTP</button>
+              <button className='btn-Otp' type="button" onClick={sendOtp}><ion-icon name="mail-unread-outline"></ion-icon>Send OTP</button>
             ) : (
-              <button type="button" onClick={verifyOtp}>Verify</button>
+              <button className='btn-vrfy' type="button" onClick={verifyOtp}><ion-icon name="logo-google"></ion-icon>Verify to Edit</button>
             )}
-            <button type="button" onClick={closeModal}>Cancel</button>
+            <button className='btn-cancel-vrfy' type="button" onClick={closeModal}><ion-icon name="close-circle-outline"></ion-icon>Cancel</button>
           </form>
         )}
       </Modal>

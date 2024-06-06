@@ -6,15 +6,15 @@ import "./AddProductPanel.css";
 const AddProductPanel = ({ onSuccess, closeModal }) => {
   const [newProduct, setNewProduct] = useState({
     name: '',
-    stocks: 0,
-    buyingPrice: 0,
-    sellingPrice: 0,
+    stocks: '', // Changed to empty string
+    buyingPrice: '', // Changed to empty string
+    sellingPrice: '', // Changed to empty string
     image: '',
     category: 'Default' // Default to 'Default'
   });
   const [categories, setCategories] = useState([]);
   const [preview, setPreview] = useState(null);
-  const [file, setFile] = useState("");
+  const [file, setFile] = useState(null);
   const [errorMessage, setErrorMessage] = useState(""); // State for error message
   const navigate = useNavigate();
 
@@ -33,28 +33,18 @@ const AddProductPanel = ({ onSuccess, closeModal }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    const parsedValue = name === 'buyingPrice' || name === 'sellingPrice' ? parseInt(value, 10) : value;
-
-    if (!isNaN(parsedValue) || name !== 'buyingPrice' || name !== 'sellingPrice') {
-      setNewProduct(prevProduct => ({
-        ...prevProduct,
-        [name]: parsedValue
-      }));
-    } else {
-      console.error(`Invalid input for ${name}: ${value}`);
-    }
+    setNewProduct(prevProduct => ({
+      ...prevProduct,
+      [name]: value
+    }));
   };
 
   const handleImageChange = (e) => {
     const image = e.target.files[0];
     if (image) {
-      const fileType = image.type.split("/")[1]; 
-      if (fileType !== "jpg" && fileType !== "jpeg" && fileType !== "png") {
-        setErrorMessage("Invalid file type. Please select a jpg, jpeg, or png file.");
-      } else {
-        setErrorMessage("");
-        setPreview(URL.createObjectURL(image));
-      }
+      setErrorMessage("");
+      setPreview(URL.createObjectURL(image));
+      setFile(image);
     }
   };
 
@@ -78,9 +68,9 @@ const AddProductPanel = ({ onSuccess, closeModal }) => {
       console.log(response.data); 
       setNewProduct({
         name: '',
-        stocks: 0,
-        buyingPrice: 0,
-        sellingPrice: 0,
+        stocks: '',
+        buyingPrice: '',
+        sellingPrice: '',
         image: '',
         category: 'Default'
       });
@@ -160,7 +150,7 @@ const AddProductPanel = ({ onSuccess, closeModal }) => {
               </div>
             </div>
             <div className='addProductPanel-field'>
-                           <label className='addProductPanel-label' htmlFor='category'>Category *</label>
+              <label className='addProductPanel-label' htmlFor='category'>Category *</label>
               <div className='addProductPanel-control'>
                 <select
                   className='addProductPanel-input'
@@ -172,7 +162,7 @@ const AddProductPanel = ({ onSuccess, closeModal }) => {
                 >
                   <option value='Default' disabled>Select Category</option>
                   {categories
-                    .sort((a, b) => a.category.localeCompare(b.category)) // Sort the categories alphabetically
+                    .sort((a, b) => a.category.localeCompare(b.category))
                     .map(category => (
                       <option key={category.id} value={category.category}>{category.category}</option>
                     ))}
@@ -181,32 +171,32 @@ const AddProductPanel = ({ onSuccess, closeModal }) => {
             </div>
             <div className='addProductPanel-field'>
               <label className='addProductPanel-label' htmlFor='image'>Image *</label>
-          <div className='addProductPanel-control'>
-          <input
-          type='file'
-          className='addProductPanel-input'
-          onChange={handleImageChange}
-          name='image'
-          id='image'
-          accept=".jpg, .jpeg, .png" // Accept only specified file types
-          required
-          />
-          </div>
-          </div>
-          <div className='addProductPanel-field-button-container'>
-          <button className='addProductPanel-button-success' type='submit'><ion-icon name="add-circle-outline"></ion-icon>Add Product</button>
-          <button className='addProductPanel-button-cancel' type='button' onClick={closeModal}><ion-icon name="close-outline"></ion-icon>Cancel</button>
-          </div>
+              <div className='addProductPanel-control'>
+                <input
+                  type='file'
+                  className='addProductPanel-input'
+                  onChange={handleImageChange}
+                  name='image'
+                  id='image'
+                  accept='.jpg, .jpeg, .png'
+                  required
+                />
+              </div>
+            </div>
+            <div className='addProductPanel-field-button-container'>
+              <button className='addProductPanel-button-success' type='submit'><ion-icon name="add-circle-outline"></ion-icon>Add Product</button>
+              <button className='addProductPanel-button-cancel' type='button' onClick={closeModal}><ion-icon name="close-outline"></ion-icon>Cancel</button>
+            </div>
           </form>
-          </div>
-          {preview && (
+        </div>
+        {preview && (
           <div className='addProductPanel-image-preview'>
-          <img src={preview} alt='Product Preview' />
+            <img src={preview} alt='Product Preview' />
           </div>
-          )}
-          </div>
-          </div>
-          );
-          };
+        )}
+      </div>
+    </div>
+  );
+};
 
 export default AddProductPanel;
