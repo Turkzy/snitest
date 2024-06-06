@@ -141,9 +141,9 @@ const SalesReport = () => {
     <div className="sales-report-container">
       <h1>Sales Report</h1>
       <div className="filter-options">
-        <button onClick={() => setFilter('today')}><ion-icon name="calendar-outline"></ion-icon>Today</button>
-        <button onClick={() => setFilter('weekly')}><ion-icon name="calendar-outline"></ion-icon>This Week</button>
-        <button onClick={() => setFilter('monthly')}><ion-icon name="calendar-outline"></ion-icon>This Month</button>
+        <button onClick={() => setFilter('today')}><ion-icon name="calendar-outline"></ion-icon>Daily</button>
+        <button onClick={() => setFilter('weekly')}><ion-icon name="calendar-outline"></ion-icon>Weekly</button>
+        <button onClick={() => setFilter('monthly')}><ion-icon name="calendar-outline"></ion-icon>Monthly</button>
         <button onClick={() => setFilter('annually')}><ion-icon name="calendar-outline"></ion-icon>Annually</button>
         {filter === 'annually' && (
           <div>
