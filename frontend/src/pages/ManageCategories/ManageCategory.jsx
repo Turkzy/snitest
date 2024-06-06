@@ -90,6 +90,7 @@ const ManageCategory = () => {
     setOtpVerified(false);
     setEmailError('');
     setOtpError('');
+    clearFields();
   };
 
   const openModal1 = () => {
@@ -110,6 +111,7 @@ const ManageCategory = () => {
     setOtpVerified(false);
     setEmailError('');
     setOtpError('');
+    clearFields();
   };
 
   const openModal2 = (id) => {
@@ -122,9 +124,17 @@ const ManageCategory = () => {
   const closeModal2 = () => {
     setModal2IsOpen(false);
     setCurrentCategory(null);
+    clearFields();
   };
   
-
+  const clearFields = () => {
+    setEmail('');
+    setOtp('');
+    setOtpSent(false);
+    setOtpVerified(false);
+    setEmailError('');
+    setOtpError('');
+  };
   const saveCategory = async () => {
     if (isEditing) {
       try {
