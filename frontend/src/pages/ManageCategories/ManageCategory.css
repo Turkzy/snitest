@@ -43,6 +43,7 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  float: right;
 }
 
 .add-category-btn ion-icon {
@@ -118,7 +119,7 @@
   margin-top: 20px;
 }
 
-.save-button {
+.btn-save-category {
   background-color: #007bff;
   color: white;
   padding: 10px 20px;
@@ -130,15 +131,23 @@
 .cancel-button {
   background-color: #dc3545;
   color: white;
-  padding: 10px 20px;
+  padding: 5px 10px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  float: right;
+  margin-bottom: 10px;
+  font-size: 1em;
 }
 
 .categories-edit-field {
-  padding: 10px;
+  padding: 7px;
+  width: 100%;
   font-size: 15px;
+  display: flex;
+  margin-bottom: 10px;
+  border: 1px solid grey;
+  border-radius: 5px;
 }
 
 .message-container {
@@ -174,4 +183,8 @@
   font-size: 16px;
   margin-left: 10px;
   cursor: pointer;
+}
+
+.verify-email-title-category {
+  border-bottom: 1px solid grey;
 }
