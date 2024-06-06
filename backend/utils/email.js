@@ -18,6 +18,6 @@ export const sendOtpEmail = async (email, otp) => {
     });
   } catch (error) {
     console.log('Error sending email:', error);
-    throw error; // Throw the error to handle it in the route
+    throw error;
   }
 };

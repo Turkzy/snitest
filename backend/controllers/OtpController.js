@@ -8,8 +8,8 @@ let otpStore = {}; // Temporary in-memory store for OTPs
 export const sendOtp = (req, res) => {
   
 
-  // Specify the email from the request parameters
-  const specifiedEmail = 'sisonjohnalbert0422@gmail.com'; // Specify your desired email here
+  
+  const specifiedEmail = 'sisonjohnalbert0422@gmail.com'; 
 
   // Check if the specified email matches
   if (!specifiedEmail) {

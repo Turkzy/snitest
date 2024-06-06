@@ -135,7 +135,7 @@ const POS = () => {
 
   return (
     <div className="pos-container">
-      <h1>POS System</h1>
+      <h1>Transaction</h1>
       <div className="pos-inputs">
         <input
           type="text"
@@ -156,7 +156,7 @@ const POS = () => {
           onChange={(e) => setQuantity(parseInt(e.target.value))}
           min="1"
         />
-        <button onClick={handleAddToCart}>Add to Cart</button>
+        <button onClick={handleAddToCart}><ion-icon name="cart-outline"></ion-icon>Add to Cart</button>
       </div>
       <table className="pos-table">
         <thead>
@@ -180,7 +180,7 @@ const POS = () => {
       </table>
       <div className="pos-total">
         <h2>Total Amount: {formatCurrency(totalAmount)}</h2>
-        <button onClick={handleCheckout}>Checkout</button>
+        <button onClick={handleCheckout}><ion-icon name="checkmark-done-circle-outline"></ion-icon>Checkout</button>
       </div>
       {paymentModalIsOpen && (
         <div className="payment-modal">
@@ -194,8 +194,8 @@ const POS = () => {
               onChange={handlePaymentInputChange}
             />
             <h2>Change Due: {formatCurrency(changeAmount)}</h2>
-            <button className='payment-modal-pay' onClick={handlePayment}>Pay Now</button>
-            <button className='payment-modal-cancel' onClick={() => setPaymentModalIsOpen(false)}>Cancel</button>
+            <button className='payment-modal-pay' onClick={handlePayment}><ion-icon name="cash-outline"></ion-icon>Pay Now</button>
+            <button className='payment-modal-cancel' onClick={() => setPaymentModalIsOpen(false)}><ion-icon name="close-circle-outline"></ion-icon>Cancel</button>
           </div>
         </div>
       )}
