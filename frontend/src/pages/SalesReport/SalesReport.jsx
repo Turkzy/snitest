@@ -130,7 +130,15 @@ const SalesReport = () => {
     printWindow.document.write(printContent.innerHTML);
     printWindow.document.write('</body></html>');
     printWindow.document.close();
-    printWindow.print();
+
+    const logoImage = printWindow.document.querySelector('.logo-modal');
+    if (logoImage.complete) {
+      printWindow.print();
+    } else {
+      logoImage.onload = () => {
+        printWindow.print();
+      };
+    }
   };
 
   const calculateTotalAmount = () => {
@@ -147,7 +155,7 @@ const SalesReport = () => {
         <button onClick={() => setFilter('annually')}><ion-icon name="calendar-outline"></ion-icon>Annually</button>
         {filter === 'annually' && (
           <div>
-            <input type="number" placeholder="Year" onChange={(e) => setSelectedYear(e.target.value)} />
+            <input className='salesreport-year' type="number" placeholder="Year" onChange={(e) => setSelectedYear(e.target.value)} />
           </div>
         )}
       </div>

@@ -165,3 +165,20 @@
   height: 10%;
   width: 10%;
 }
+
+.salesreport-year {
+  width: 200px;             /* Adjust the width as needed */
+  padding: 8px;             /* Adjust the padding for better spacing */
+  margin: 10px 0;           /* Space around the input */
+  border: 1px solid #ccc;   /* Border color and style */
+  border-radius: 4px;       /* Rounded corners */
+  font-size: 16px;          /* Font size for better readability */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Inner shadow for depth */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition for focus */
+}
+
+.salesreport-year:focus {
+  border-color: #66afe9;    /* Border color on focus */
+  box-shadow: 0 0 8px rgba(102, 175, 233, 0.6); /* Outer glow on focus */
+  outline: none;            /* Remove default outline */
+}
