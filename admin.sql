@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 03, 2024 at 01:19 PM
+-- Generation Time: Jun 18, 2024 at 04:00 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -44,8 +44,8 @@ INSERT INTO `admin` (`id`, `username`, `password`, `usertype`, `createdAt`, `upd
 (1, 'sison0422', 'admin', 'Admin', '2024-04-18 14:11:51', '2024-06-01 05:41:36'),
 (4, 'joshua', 'admin', 'Admin', '2024-05-18 03:00:32', '2024-05-18 03:00:32'),
 (5, 'Kevin', 'admin', 'Admin', '2024-05-18 03:00:56', '2024-05-18 03:00:56'),
-(16, 'Rhayana', '123', 'Admin', '2024-05-31 15:33:04', '2024-06-01 01:40:06'),
-(19, 'test', 'user', 'User', '2024-06-01 01:40:02', '2024-06-01 01:40:02');
+(16, 'Rhayana', 'admin', 'Admin', '2024-05-31 15:33:04', '2024-06-01 01:40:06'),
+(89, 'employee', 'user', 'User', '2024-06-10 23:22:40', '2024-06-10 23:22:40');
 
 --
 -- Indexes for dumped tables
@@ -65,7 +65,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
