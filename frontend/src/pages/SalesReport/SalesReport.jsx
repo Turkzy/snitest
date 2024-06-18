@@ -44,6 +44,7 @@ const SalesReport = () => {
     let filtered = [...transactions];
 
     const now = new Date();
+    
     const startOfWeek = new Date(now);
     startOfWeek.setDate(now.getDate() - now.getDay());
     startOfWeek.setHours(0, 0, 0, 0);
@@ -162,7 +163,7 @@ const SalesReport = () => {
       <table className="sales-report-table">
         <thead>
           <tr>
-            <th className="date-header">Date</th>
+            <th className="date-header">Date of Transaction</th>
             <th className="total-amount-header">Total Amount</th>
             <th className="action-header">Action</th>
           </tr>

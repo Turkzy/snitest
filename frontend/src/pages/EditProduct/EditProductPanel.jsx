@@ -74,7 +74,7 @@ const EditProduct = () => {
             setTimeout(() => {
                 setSuccessMessage('');
                 navigate("/Dashboard/EditPanel");
-            }, 1000);
+            }, 1500);
         } catch (error) {
             console.log(error);
         }

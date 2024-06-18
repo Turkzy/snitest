@@ -6,9 +6,9 @@ import './ManageCategory.css';
 const ManageCategory = () => {
   const [categories, setCategories] = useState([]);
   const [showScroll, setShowScroll] = useState(false);
-  const [modalIsOpen, setModalIsOpen] = useState(false); // Modal for editing existing category
-  const [modal1IsOpen, setModal1IsOpen] = useState(false); // Modal for adding new category
-  const [modal2IsOpen, setModal2IsOpen] = useState(false); // Modal for delete confirmation
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modal1IsOpen, setModal1IsOpen] = useState(false); 
+  const [modal2IsOpen, setModal2IsOpen] = useState(false); 
   const [isEditing, setIsEditing] = useState(false);
   const [currentCategory, setCurrentCategory] = useState(null);
   const [categoryName, setCategoryName] = useState('');
@@ -34,7 +34,7 @@ const ManageCategory = () => {
       const timer = setTimeout(() => {
         setMessage(null);
         setMessageType('');
-      }, 3000);
+      }, 5000);
       return () => clearTimeout(timer);
     }
   }, [message]);
@@ -115,7 +115,7 @@ const ManageCategory = () => {
   };
 
   const openModal2 = (id) => {
-    if (window.confirm("Are you sure you want to delete this product?")) {
+    if (window.confirm("Are you sure you want to delete this category?")) {
       setCurrentCategory(id);
       setModal2IsOpen(true);
     }
@@ -182,6 +182,9 @@ const ManageCategory = () => {
   const sendOtp = async () => {
     if (!email.trim()) {
       setEmailError('Email is required');
+      return;
+    } if (!email.includes('@')) {
+      setEmailError('Invalid Email. it must contain @');
       return;
     }
     try {
@@ -253,6 +256,8 @@ const ManageCategory = () => {
           <thead>
             <tr>
               <th>Category</th>
+              <th>Date Created</th>
+              <th>Updated At</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -267,6 +272,8 @@ const ManageCategory = () => {
               filteredCategories.map((category) => (
                 <tr key={category.id}>
                   <td>{category.category}</td>
+                  <td>{new Date(category.createdAt).toLocaleDateString()}</td>
+                  <td>{new Date(category.updatedAt).toLocaleDateString()}</td>
                   <td>
                     <button className="edit-button" onClick={() => openModal(category)}>
                       <ion-icon name="create-outline" />Edit
@@ -329,7 +336,7 @@ const ManageCategory = () => {
           )}
         </form>
       </Modal>
-       {/* Delete Confirmation Modal */}
+       {/* Edit Confirmation Modal */}
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} className="small-modal" overlayClassName="overlay">
         <button className="cancel-button" onClick={closeModal}>
           <ion-icon name="close-outline"></ion-icon>

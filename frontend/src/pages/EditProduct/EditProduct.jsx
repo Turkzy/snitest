@@ -93,6 +93,7 @@ const EditProduct = () => {
     setCurrentProduct(null);
   };
 
+  
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUpdatedProduct({ ...updatedProduct, [name]: value });
@@ -111,6 +112,9 @@ const EditProduct = () => {
   const sendOtp = async () => {
     if (!email.trim()) {
       setEmailError('Email is required');
+      return;
+    }if (!email.includes('@')) {
+      setEmailError('Invalid Email. it must contain @');
       return;
     }
   
@@ -180,11 +184,13 @@ const EditProduct = () => {
             <thead>
               <tr>
                 <th className="edit-products-th">Product Name</th>
+                
                 <th className="edit-products-th">Stocks</th>
                 <th className="edit-products-th">Buying Price</th>
                 <th className="edit-products-th">Selling Price</th>
                 <th className="edit-products-th">Category</th>
                 <th className="edit-products-th">Image</th>
+                <th className="edit-products-th">Updated At</th>
                 <th className="edit-products-th">Edit</th>
               </tr>
             </thead>
@@ -192,6 +198,7 @@ const EditProduct = () => {
               {filteredProducts.map((product) => (
                 <tr key={product.id}>
                   <td className="edit-products-td">{product.name}</td>
+                  
                   <td className="edit-products-td">{product.stocks}</td>
                   <td className="edit-products-td">{formatPrice(product.buyingPrice)}</td>
                   <td className="edit-products-td">{formatPrice(product.sellingPrice)}</td>
@@ -199,6 +206,7 @@ const EditProduct = () => {
                   <td className="edit-products-td">
                     <img src={product.url} alt="Product" width="50" height="50" />
                   </td>
+                  <td className="addProduct-td">{new Date(product.updatedAt).toLocaleDateString()}</td>
                   <td className="edit-products-td">
                     <button className="edit-products-edit-button" onClick={() => openModal(product)}>
                       <ion-icon name="create-outline" />Edit

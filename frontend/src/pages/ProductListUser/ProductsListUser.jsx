@@ -81,9 +81,10 @@ const ProductsListUser = () => {
             <tr>
               <th className="prodList-th">Product Name</th>
               <th className="prodList-th">Stocks</th>
-              <th className="prodList-th">Buying Price</th>
               <th className="prodList-th">Selling Price</th>
               <th className="prodList-th">Category</th>
+              <th className="prodList-th">Date Created</th>
+              <th className="prodList-th">Updated At</th>
               <th className="prodList-th">Image</th>
             </tr>
           </thead>
@@ -97,9 +98,10 @@ const ProductsListUser = () => {
                 <tr key={product.id}>
                   <td className="prodList-td">{product.name}</td>
                   <td className="prodList-td">{product.stocks}</td>
-                  <td className="prodList-td">{formatPrice(product.buyingPrice)}</td>
                   <td className="prodList-td">{formatPrice(product.sellingPrice)}</td>
                   <td className="prodList-td">{product.category}</td>
+                  <td className="prodList-td">{new Date(product.createdAt).toLocaleDateString()}</td>
+                  <td className="prodList-td">{new Date(product.updatedAt).toLocaleDateString()}</td>
                   <td className="prodList-td"><img src={product.url} alt="Product" width="50" height="50" /></td>
                 </tr>
               ))

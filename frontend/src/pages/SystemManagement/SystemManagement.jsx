@@ -32,7 +32,7 @@ const SystemManagement = () => {
       const timer = setTimeout(() => {
         setMessage(null);
         setMessageType('');
-      }, 3000);
+      }, 5000);
       return () => clearTimeout(timer);
     }
   }, [message]);
@@ -116,9 +116,9 @@ const SystemManagement = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const isUsernameTaken = admins.some(admin => admin.username === username);
+    const isUsernameTaken = admins.some(admin => admin.username.toLowerCase() === username.toLowerCase());
 
-    if (isUsernameTaken && (!isEditing || (isEditing && currentAdmin.username !== username))) {
+    if (isUsernameTaken && (!isEditing || (isEditing && currentAdmin.username.toLowerCase() !== username.toLowerCase()))) {
       setError('Username already taken!');
       return;
     } else {
@@ -161,6 +161,9 @@ const SystemManagement = () => {
   const sendOtp = async () => {
     if (!email.trim()) {
       setEmailError('Email is required');
+      return;
+    } if (!email.includes('@')) {
+      setEmailError('Invalid Email. it must contain @');
       return;
     }
     try {
@@ -208,6 +211,8 @@ const SystemManagement = () => {
               <th className="admins-th">Username</th>
               <th className="admins-th">Password</th>
               <th className="admins-th">Usertype</th>
+              <th className="admins-th">Account Created At</th>
+              <th className="admins-th">Account Updated At</th>
               <th className="admins-th">Actions</th>
             </tr>
           </thead>
@@ -217,6 +222,8 @@ const SystemManagement = () => {
                 <td className="admins-td">{admin.username}</td>
                 <td className="admins-td">{admin.password}</td>
                 <td className="admins-td">{admin.usertype}</td>
+                <td className="admins-td">{new Date(admin.createdAt).toLocaleDateString()}</td>
+                <td className="admins-td">{new Date(admin.updatedAt).toLocaleDateString()}</td>
                 <td className="admins-td">
                   <button className="edit-button" onClick={() => openModal(admin)}>
                     <ion-icon name="create-outline" />Edit

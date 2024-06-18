@@ -26,6 +26,7 @@ const AddProduct = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [message, setMessage] = useState(null);
   const [messageType, setMessageType] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     getProducts();
@@ -78,15 +79,30 @@ const AddProduct = () => {
       const timer = setTimeout(() => {
         setMessage(null);
         setMessageType("");
-      }, 3000);
+      }, 5000);
       return () => clearTimeout(timer);
     }
   }, [message]);
+
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+  
+  const handleSearchInputChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
 
   return (
     <div className="add-products-container">
       <div className="header">
         <h1>Add Products</h1>
+        <input
+          className="prodList-search-input"
+          type="text"
+          placeholder="Search products..."
+          value={searchQuery}
+          onChange={handleSearchInputChange}
+        />
         <button className="add-product-btn" onClick={openModal}>
           <ion-icon name="add-circle-outline"></ion-icon>Add Product
         </button>
@@ -101,10 +117,11 @@ const AddProduct = () => {
               <th className="addProduct-th">Selling Price</th>
               <th className="addProduct-th">Category</th> 
               <th className="addProduct-th">Image</th>
+              <th className="addProduct-th">Date Created</th>
             </tr>
           </thead>
           <tbody>
-            {products.map((product) => (
+            {filteredProducts.map((product) => (
               <tr key={product.id}>
                 <td className="addProduct-td">{product.name}</td>
                 <td className="addProduct-td">{product.stocks}</td>
@@ -112,6 +129,7 @@ const AddProduct = () => {
                 <td className="addProduct-td">{formatPrice(product.sellingPrice)}</td>
                 <td className="addProduct-td">{product.category}</td>
                 <td className="addProduct-td"><img src={product.url} alt="Product" width="50" height="50" /></td>
+                <td className="addProduct-td">{new Date(product.updatedAt).toLocaleDateString()}</td>
               </tr>
             ))}
           </tbody>

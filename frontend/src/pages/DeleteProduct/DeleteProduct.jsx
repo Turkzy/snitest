@@ -46,7 +46,7 @@ const DeleteProduct = () => {
     if (successMessage) {
       const timer = setTimeout(() => {
         setSuccessMessage('');
-      }, 3000);
+      }, 5000);
       return () => clearTimeout(timer);
     }
   }, [successMessage]);
@@ -109,6 +109,9 @@ const DeleteProduct = () => {
     if (!email.trim()) {
       setEmailError('Email is required');
       return;
+    }if (!email.includes('@')) {
+      setEmailError('Invalid Email. it must contain @');
+      return;
     }
   
     try {
@@ -167,6 +170,7 @@ const DeleteProduct = () => {
               <th className="DeletePanel-th">Selling Price</th>
               <th className="DeletePanel-th">Category</th>
               <th className="DeletePanel-th">Image</th>
+              <th className="addProduct-th">Date Created</th>
               <th className="DeletePanel-th">Delete</th>
               </tr>
         </thead>
@@ -182,6 +186,7 @@ const DeleteProduct = () => {
                 <td className="DeletePanel-td">
                   <img src={product.url} alt="Product" width="50" height="50" />
                 </td>
+                <td className="addProduct-td">{new Date(product.updatedAt).toLocaleDateString()}</td>
                 <td className="DeletePanel-td">
                   <button className="DeletePanel-delete-button" onClick={() => openModal(product)}>
                     <ion-icon name="trash-outline"></ion-icon>Delete
