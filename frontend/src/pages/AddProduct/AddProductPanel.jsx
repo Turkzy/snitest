@@ -16,6 +16,7 @@ const AddProductPanel = ({ onSuccess, closeModal }) => {
   const [preview, setPreview] = useState(null);
   const [file, setFile] = useState(null);
   const [errorMessage, setErrorMessage] = useState(""); // State for error message
+  // eslint-disable-next-line no-unused-vars
   const navigate = useNavigate();
 
   useEffect(() => {

@@ -7,8 +7,8 @@ const ManageCategory = () => {
   const [categories, setCategories] = useState([]);
   const [showScroll, setShowScroll] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [modal1IsOpen, setModal1IsOpen] = useState(false); 
-  const [modal2IsOpen, setModal2IsOpen] = useState(false); 
+  const [modal1IsOpen, setModal1IsOpen] = useState(false);
+  const [modal2IsOpen, setModal2IsOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [currentCategory, setCurrentCategory] = useState(null);
   const [categoryName, setCategoryName] = useState('');
@@ -49,16 +49,8 @@ const ManageCategory = () => {
   };
 
   const deleteCategory = async (id) => {
-    if (window.confirm("Are you sure you want to delete this category?")) {
-      try {
-        await axios.delete(`http://localhost:5000/categories/${id}`);
-        getCategories();
-        setMessage('Category successfully deleted!');
-        setMessageType('delete');
-      } catch (error) {
-        console.log(error);
-      }
-    }
+    setCurrentCategory(id);
+    setModal2IsOpen(true);
   };
 
   const handleScroll = () => {
@@ -113,20 +105,18 @@ const ManageCategory = () => {
     setOtpError('');
     clearFields();
   };
-
+// eslint-disable-next-line no-unused-vars
   const openModal2 = (id) => {
-    if (window.confirm("Are you sure you want to delete this category?")) {
-      setCurrentCategory(id);
-      setModal2IsOpen(true);
-    }
+    setCurrentCategory(id);
+    setModal2IsOpen(true);
   };
-  
+
   const closeModal2 = () => {
     setModal2IsOpen(false);
     setCurrentCategory(null);
     clearFields();
   };
-  
+
   const clearFields = () => {
     setEmail('');
     setOtp('');
@@ -135,6 +125,7 @@ const ManageCategory = () => {
     setEmailError('');
     setOtpError('');
   };
+
   const saveCategory = async () => {
     if (isEditing) {
       try {
@@ -183,7 +174,8 @@ const ManageCategory = () => {
     if (!email.trim()) {
       setEmailError('Email is required');
       return;
-    } if (!email.includes('@')) {
+    }
+    if (!email.includes('@')) {
       setEmailError('Invalid Email. it must contain @');
       return;
     }
@@ -211,15 +203,13 @@ const ManageCategory = () => {
       await axios.post('http://localhost:5000/verify-otp', { email, otp });
       await axios.delete(`http://localhost:5000/categories/${currentCategory}`);
       getCategories();
-      closeModal2(); 
+      closeModal2();
       setMessage('Category successfully deleted!');
       setMessageType('delete');
     } catch (error) {
       setOtpError('Invalid OTP. Please try again.');
     }
   };
-  
-  
 
   const saveNewCategory = async () => {
     if (!categoryName.trim()) {
@@ -278,7 +268,7 @@ const ManageCategory = () => {
                     <button className="edit-button" onClick={() => openModal(category)}>
                       <ion-icon name="create-outline" />Edit
                     </button>
-                    <button className="delete-button" onClick={() => openModal2(category.id)}>
+                    <button className="delete-button" onClick={() => deleteCategory(category.id)}>
                       <ion-icon name="trash-outline"></ion-icon>Delete
                     </button>
                   </td>
@@ -293,59 +283,66 @@ const ManageCategory = () => {
           <ion-icon name="chevron-up-circle-outline"></ion-icon>Back to Top
         </button>
       )}
-      
+
       {/* Delete Confirmation Modal */}
-      <Modal isOpen={modal2IsOpen} onRequestClose={closeModal2} className="small-modal" overlayClassName="overlay">
-      <button className="cancel-button" onClick={closeModal2}>
-          <ion-icon name="close-outline"></ion-icon>
+<Modal isOpen={modal2IsOpen} onRequestClose={closeModal2} className="small-modal" overlayClassName="overlay">
+  <button className="cancel-button" onClick={closeModal2}>
+    <ion-icon name="close-outline"></ion-icon>
+  </button>
+  <h2 className="verify-email-title-category">Verify Email</h2>
+  <form onSubmit={(e) => e.preventDefault()}>
+    <label>
+      Email:
+      <input
+        className="input-email"
+        type="email"
+        name="email"
+        value={email}
+        onChange={handleEmailChange}
+        required
+      />
+      {emailError && <div className="error-message">{emailError}</div>}
+    </label>
+    {otpSent && (
+      <label>
+        Enter OTP:
+        <input
+          className="input-otp"
+          type="text"
+          name="otp"
+          value={otp}
+          onChange={handleOtpChange}
+          required
+        />
+        {otpError && <div className="error-message">{otpError}</div>}
+      </label>
+    )}
+    {!otpSent ? (
+      <button className="btn-Otp" type="button" onClick={sendOtp}>
+        <ion-icon name="mail-unread-outline"></ion-icon>Send OTP
+      </button>
+    ) : (
+      <>
+        <p>Are you sure you want to delete this category?</p>
+        <button className="btn-vrfy" type="button" onClick={verifyOtpAndDelete}>
+          <ion-icon name="logo-google"></ion-icon>Yes, Delete
         </button>
-        <h2 className='verify-email-title-category'>Verify Email</h2>
-        <form onSubmit={(e) => e.preventDefault()}>
-          <label>Email:
-            <input
-              className='input-email'
-              type="email"
-              name="email"
-              value={email}
-              onChange={handleEmailChange}
-              required
-            />
-            {emailError && <div className="error-message">{emailError}</div>}
-          </label>
-          {otpSent && (
-            <label>Enter OTP:
-              <input
-                className='input-otp'
-                type="text"
-                name="otp"
-                value={otp}
-                onChange={handleOtpChange}
-                required
-              />
-              {otpError && <div className="error-message">{otpError}</div>}
-            </label>
-          )}
-          {!otpSent ? (
-            <button className='btn-Otp' type="button" onClick={sendOtp}>
-              <ion-icon name="mail-unread-outline"></ion-icon>Send OTP
-            </button>
-          ) : (
-            <button className='btn-vrfy' type="button" onClick={verifyOtpAndDelete}>
-              <ion-icon name="logo-google"></ion-icon>Verify OTP and delete
-            </button>
-          )}
-        </form>
-      </Modal>
-       {/* Edit Confirmation Modal */}
+      </>
+    )}
+  </form>
+</Modal>
+
+      {/* Edit Confirmation Modal */}
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} className="small-modal" overlayClassName="overlay">
         <button className="cancel-button" onClick={closeModal}>
           <ion-icon name="close-outline"></ion-icon>
         </button>
-        <h2 className='verify-email-title-category'>Verify Email</h2>
+        <h2 className="verify-email-title-category">Verify Email</h2>
         <form onSubmit={(e) => e.preventDefault()}>
-          <label>Email:
+          <label>
+            Email:
             <input
-              className='input-email'
+              className="input-email"
               type="email"
               name="email"
               value={email}
@@ -355,9 +352,10 @@ const ManageCategory = () => {
             {emailError && <div className="error-message">{emailError}</div>}
           </label>
           {otpSent && (
-            <label>Enter OTP:
+            <label>
+              Enter OTP:
               <input
-                className='input-otp'
+                className="input-otp"
                 type="text"
                 name="otp"
                 value={otp}
@@ -368,27 +366,28 @@ const ManageCategory = () => {
             </label>
           )}
           {!otpSent ? (
-            <button className='btn-Otp' type="button" onClick={sendOtp}>
+            <button className="btn-Otp" type="button" onClick={sendOtp}>
               <ion-icon name="mail-unread-outline"></ion-icon>Send OTP
             </button>
           ) : (
-            <button className='btn-vrfy' type="button" onClick={verifyOtpAndEdit}>
+            <button className="btn-vrfy" type="button" onClick={verifyOtpAndEdit}>
               <ion-icon name="logo-google"></ion-icon>Verify OTP
             </button>
           )}
         </form>
         {otpVerified && (
           <>
-            <h3 className='category-modal'>Edit Category</h3>
+            <h3 className="category-modal">Edit Category</h3>
             <input
               type="text"
               value={categoryName}
               onChange={(e) => setCategoryName(e.target.value)}
               placeholder="Enter category name"
-              className='categories-edit-field'
+              className="categories-edit-field"
             />
-            <button className='btn-save-category' type="button" onClick={saveCategory}>
-              <ion-icon name="save-outline"></ion-icon>{isEditing ? "Save Changes" : "Add Category"}
+            <button className="btn-save-category" type="button" onClick={saveCategory}>
+              <ion-icon name="save-outline"></ion-icon>
+              {isEditing ? 'Save Changes' : 'Add Category'}
             </button>
           </>
         )}
@@ -398,11 +397,12 @@ const ManageCategory = () => {
         <button className="cancel-button" onClick={closeModal1}>
           <ion-icon name="close-outline"></ion-icon>
         </button>
-        <h2 className='verify-email-title-category'>Add New Category</h2>
+        <h2 className="verify-email-title-category">Add New Category</h2>
         <form onSubmit={(e) => e.preventDefault()}>
-          <label>Category Name:
+          <label>
+            Category Name:
             <input
-              className='input-email'
+              className="input-email"
               type="text"
               name="categoryName"
               value={categoryName}
@@ -414,7 +414,7 @@ const ManageCategory = () => {
             />
             {categoryNameError && <div className="error-message">{categoryNameError}</div>}
           </label>
-          <button className='btn-save-category' type="button" onClick={saveNewCategory}>
+          <button className="btn-save-category" type="button" onClick={saveNewCategory}>
             <ion-icon name="save-outline"></ion-icon>Add Category
           </button>
         </form>
@@ -422,7 +422,9 @@ const ManageCategory = () => {
       {message && (
         <div className={`message-container ${messageType}`}>
           {message}
-          <button className="close-message-btn" onClick={() => setMessage(null)}>X</button>
+          <button className="close-message-btn" onClick={() => setMessage(null)}>
+            X
+          </button>
         </div>
       )}
     </div>
@@ -430,4 +432,3 @@ const ManageCategory = () => {
 };
 
 export default ManageCategory;
-

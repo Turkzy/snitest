@@ -93,7 +93,7 @@ const EditProduct = () => {
     setCurrentProduct(null);
   };
 
-  
+  // eslint-disable-next-line no-unused-vars
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUpdatedProduct({ ...updatedProduct, [name]: value });
@@ -138,7 +138,7 @@ const EditProduct = () => {
       setOtpError('Invalid OTP. Please try again.');
     }
   };
-
+// eslint-disable-next-line no-unused-vars
   const handleFormSubmit = async () => {
     try {
       await axios.put(`http://localhost:5000/products/${currentProduct.id}`, updatedProduct);

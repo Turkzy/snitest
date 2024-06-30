@@ -33,7 +33,10 @@ const DeleteProduct = () => {
   const [emailError, setEmailError] = useState('');
   const [otpError, setOtpError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [confirmDelete, setConfirmDelete] = useState(false); // New state for confirmation
+  // eslint-disable-next-line no-unused-vars
   const [isEmailValid, setIsEmailValid] = useState(false); // New state to track email validity
+  // eslint-disable-next-line no-unused-vars
   const navigate = useNavigate(); // useNavigate hook from React Router v6
 
   useEffect(() => {
@@ -83,9 +86,8 @@ const DeleteProduct = () => {
     setOtpSent(false);
     setEmailError('');
     setOtpError('');
-    if (window.confirm("Are you sure you want to delete this product?")) {
-      setModalIsOpen(true);
-    }
+    setConfirmDelete(false); // Reset confirmation state
+    setModalIsOpen(true);
   };
 
   const closeModal = () => {
@@ -109,11 +111,12 @@ const DeleteProduct = () => {
     if (!email.trim()) {
       setEmailError('Email is required');
       return;
-    }if (!email.includes('@')) {
+    }
+    if (!email.includes('@')) {
       setEmailError('Invalid Email. it must contain @');
       return;
     }
-  
+
     try {
       // Assuming an endpoint exists for sending OTP
       await axios.post('http://localhost:5000/send-otp', { email });
@@ -123,20 +126,25 @@ const DeleteProduct = () => {
       setEmailError('Enter a valid email');
     }
   };
-  
 
   const verifyOtpAndDelete = async () => {
-    try {
-      // Assuming an endpoint exists for verifying OTP
-      await axios.post('http://localhost:5000/verify-otp', { email, otp });
-      // If OTP is verified, delete the product
-      await axios.delete(`http://localhost:5000/products/${currentProduct.id}`);
-      getProducts();
-      closeModal();
-      setSuccessMessage('Product successfully deleted!');
-    } catch (error) {
-      setOtpError('Invalid OTP. Please try again.');
+    if (confirmDelete) {
+      try {
+        // Assuming an endpoint exists for verifying OTP
+        await axios.post('http://localhost:5000/verify-otp', { email, otp });
+        // If OTP is verified, delete the product
+        await axios.delete(`http://localhost:5000/products/${currentProduct.id}`);
+        getProducts();
+        closeModal();
+        setSuccessMessage('Product successfully deleted!');
+      } catch (error) {
+        setOtpError('Invalid OTP. Please try again.');
+      }
     }
+  };
+
+  const handleDeleteConfirmation = () => {
+    setConfirmDelete(true);
   };
 
   const formatPrice = (price) => {
@@ -172,90 +180,98 @@ const DeleteProduct = () => {
               <th className="DeletePanel-th">Image</th>
               <th className="addProduct-th">Date Created</th>
               <th className="DeletePanel-th">Delete</th>
-              </tr>
-        </thead>
-        <tbody>
-          {filteredProducts.length > 0 ? (
-            filteredProducts.map((product) => (
-              <tr key={product.id}>
-                <td className="DeletePanel-td">{product.name}</td>
-                <td className="DeletePanel-td">{product.stocks}</td>
-                <td className="DeletePanel-td">{formatPrice(product.buyingPrice)}</td>
-                <td className="DeletePanel-td">{formatPrice(product.sellingPrice)}</td>
-                <td className="DeletePanel-td">{product.category}</td>
-                <td className="DeletePanel-td">
-                  <img src={product.url} alt="Product" width="50" height="50" />
-                </td>
-                <td className="addProduct-td">{new Date(product.updatedAt).toLocaleDateString()}</td>
-                <td className="DeletePanel-td">
-                  <button className="DeletePanel-delete-button" onClick={() => openModal(product)}>
-                    <ion-icon name="trash-outline"></ion-icon>Delete
-                  </button>
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="7" className="no-products">No products match your search.</td>
             </tr>
-          )}
-        </tbody>
-      </table>
-    </div>
-    {showScroll && (
-      <button className="delete-scroll-to-top" onClick={scrollToTop}>
-        <ion-icon name="chevron-up-circle-outline"></ion-icon>Back to Top
-      </button>
-    )}
-
-    <Modal
-      isOpen={modalIsOpen}
-      onRequestClose={closeModal}
-      style={customModalStyles}
-      contentLabel="Delete Product Modal"
-    >
-      <h2 className='verify-email-title'>Verify Email</h2>
-      {currentProduct && (
-        <form onSubmit={(e) => e.preventDefault()}>
-          <label>
-            Email:
-            <input
-              className='input-email'
-              type="email"
-              name="email"
-              value={email}
-              onChange={handleEmailChange}
-              required // Add required attribute here
-            />
-            {emailError && <div className="error-message">{emailError}</div>}
-          </label>
-          {otpSent && (
-            <label>
-              Enter OTP:
-              <input
-                className='input-otp'
-                type="text"
-                name="otp"
-                value={otp}
-                onChange={handleOtpChange}
-                required
-              />
-              {otpError && <div className="error-message">{otpError}</div>}
-            </label>
-          )}
-          {!otpSent ? (
-            <button className='btn-Otp' type="button" onClick={sendOtp}><ion-icon name="mail-unread-outline"></ion-icon>Send OTP</button>
-          ) : (
-            <button className='btn-vrfy' type="button" onClick={verifyOtpAndDelete}><ion-icon name="logo-google"></ion-icon>Verify and Delete</button>
-          )}
-          <button className='btn-cancel-vrfy' type="button" onClick={closeModal}><ion-icon name="close-circle-outline"></ion-icon>Cancel</button>
-        </form>
+          </thead>
+          <tbody>
+            {filteredProducts.length > 0 ? (
+              filteredProducts.map((product) => (
+                <tr key={product.id}>
+                  <td className="DeletePanel-td">{product.name}</td>
+                  <td className="DeletePanel-td">{product.stocks}</td>
+                  <td className="DeletePanel-td">{formatPrice(product.buyingPrice)}</td>
+                  <td className="DeletePanel-td">{formatPrice(product.sellingPrice)}</td>
+                  <td className="DeletePanel-td">{product.category}</td>
+                  <td className="DeletePanel-td">
+                    <img src={product.url} alt="Product" width="50" height="50" />
+                  </td>
+                  <td className="addProduct-td">{new Date(product.updatedAt).toLocaleDateString()}</td>
+                  <td className="DeletePanel-td">
+                    <button className="DeletePanel-delete-button" onClick={() => openModal(product)}>
+                      <ion-icon name="trash-outline"></ion-icon>Delete
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="7" className="no-products">No products match your search.</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+      {showScroll && (
+        <button className="delete-scroll-to-top" onClick={scrollToTop}>
+          <ion-icon name="chevron-up-circle-outline"></ion-icon>Back to Top
+        </button>
       )}
-    </Modal>
-    {successMessage && <div className="delete-message-container ">{successMessage}</div>}
-  </div>
-);
+
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={customModalStyles}
+        contentLabel="Delete Product Modal"
+      >
+        <h2 className='verify-email-title'>Verify Email</h2>
+        {currentProduct && (
+          <>
+            {confirmDelete ? (
+              <form onSubmit={(e) => e.preventDefault()}>
+                <label>
+                  Email:
+                  <input
+                    className='input-email'
+                    type="email"
+                    name="email"
+                    value={email}
+                    onChange={handleEmailChange}
+                    required // Add required attribute here
+                  />
+                  {emailError && <div className="error-message">{emailError}</div>}
+                </label>
+                {otpSent && (
+                  <label>
+                    Enter OTP:
+                    <input
+                      className='input-otp'
+                      type="text"
+                      name="otp"
+                      value={otp}
+                      onChange={handleOtpChange}
+                      required
+                    />
+                    {otpError && <div className="error-message">{otpError}</div>}
+                  </label>
+                )}
+                {!otpSent ? (
+                  <button className='btn-Otp' type="button" onClick={sendOtp}><ion-icon name="mail-unread-outline"></ion-icon>Send OTP</button>
+                ) : (
+                  <button className='btn-vrfy' type="button" onClick={verifyOtpAndDelete}><ion-icon name="logo-google"></ion-icon>Verify and Delete</button>
+                )}
+                <button className='btn-cancel-vrfy' type="button" onClick={closeModal}><ion-icon name="close-circle-outline"></ion-icon>Cancel</button>
+              </form>
+            ) : (
+              <>
+                <p>Are you sure you want to delete {currentProduct.name}?</p>
+                <button className='btn-confirm-delete' onClick={handleDeleteConfirmation}>Confirm Delete</button>
+              </>
+            )}
+          </>
+        )}
+      </Modal>
+      {successMessage && <div className="delete-message-container ">{successMessage}</div>}
+    </div>
+  );
 };
 
 export default DeleteProduct;
-

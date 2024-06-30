@@ -24,6 +24,7 @@ const SalesReport = () => {
   const [transactions, setTransactions] = useState([]);
   const [filteredTransactions, setFilteredTransactions] = useState([]);
   const [filter, setFilter] = useState('today');
+  // eslint-disable-next-line no-unused-vars
   const [selectedMonth, setSelectedMonth] = useState('');
   const [selectedYear, setSelectedYear] = useState('');
   const [modalIsOpen, setModalIsOpen] = useState(false); // State to manage modal visibility
@@ -37,10 +38,10 @@ const SalesReport = () => {
   }, []);
 
   useEffect(() => {
-    filterTransactions(filter, selectedMonth, selectedYear);
+    filterTransactions(filter, selectedMonth, selectedYear, transactions);
   }, [filter, selectedMonth, selectedYear, transactions]);
 
-  const filterTransactions = (filter, month, year) => {
+  const filterTransactions = (filter, month, year, transactions) => {
     let filtered = [...transactions];
 
     const now = new Date();
@@ -232,3 +233,5 @@ const SalesReport = () => {
 };
 
 export default SalesReport;
+
+// eslint-disable-next-line react-hooks/exhaustive-deps

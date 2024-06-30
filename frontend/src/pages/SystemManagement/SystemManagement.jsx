@@ -45,7 +45,7 @@ const SystemManagement = () => {
       console.log(error);
     }
   };
-
+// eslint-disable-next-line no-unused-vars
   const deleteAdmin = async (id) => {
     try {
       await axios.delete(`http://localhost:5000/admins/${id}`);
@@ -90,10 +90,8 @@ const SystemManagement = () => {
   };
 
   const openModal2 = (id) => {
-    if (window.confirm("Are you sure you want to delete this user?")) {
-      setCurrentAdmin(id);
-      setModal2IsOpen(true);
-    }
+    setCurrentAdmin(id);
+    setModal2IsOpen(true);
   };
 
   const closeModal2 = () => {
